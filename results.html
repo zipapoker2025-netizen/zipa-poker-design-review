@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>ZIPA POKER 審閱回覆彙總</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700;900&display=swap">
+<style>
+/* Same 1A system as the review page: 紙白 ground, 協會藍 structure, 競賽紅 reserved for
+   the one thing that matters here — a section that is not yet settled. */
+:root{
+  --blue-950:#0F1A3C; --blue-900:#16307A; --blue-800:#1B3A8C; --blue-600:#2F5BD0;
+  --blue-300:#B9C7EE; --blue-200:#9FB0DF; --blue-100:#DCE0EC;
+  --red-600:#C6402E; --red-700:#A83526;
+  --ink-900:#101418; --ink-700:#43484F; --ink-500:#5C6169;
+  --line-300:#D9DBD6; --line-200:#E3E5E0;
+  --paper-200:#EDEEEB; --paper-100:#F2F2EE; --paper-050:#F5F6F4; --white:#FFFFFF;
+  --font-display:"Barlow Condensed","Noto Sans TC",Helvetica,sans-serif;
+  --font-zh:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --pad:clamp(16px,5.7vw,64px);
+}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--paper-050);color:var(--ink-900);
+  font:400 16px/1.75 var(--font-zh);letter-spacing:.01em;overflow-x:hidden}
+a{color:var(--blue-600);text-decoration:none;border-bottom:1px solid rgba(47,91,208,.35)}
+a:hover{color:var(--blue-800)}
+.shell{max-width:1180px;margin:0 auto;padding:0 var(--pad)}
+.mono{font:500 clamp(10px,2.4vw,12px)/1.3 var(--font-mono);letter-spacing:.13em;text-transform:uppercase}
+header{background:var(--blue-950);color:var(--paper-100);padding:clamp(28px,6vw,56px) 0}
+h1{font:900 clamp(26px,6.6vw,48px)/1.2 var(--font-zh);letter-spacing:.03em;color:var(--white);margin:14px 0 0}
+.rule{width:64px;height:6px;background:var(--red-600);margin:18px 0 0}
+main{padding:clamp(28px,6vw,56px) 0 clamp(44px,9vw,96px)}
+section{border-top:1px solid var(--line-300);padding:clamp(26px,5vw,44px) 0}
+section:first-child{border-top:none;padding-top:0}
+.h2{font:700 clamp(21px,4.6vw,32px)/1.3 var(--font-zh);letter-spacing:.02em;color:var(--blue-800);margin:12px 0 0}
+.eyebrow{display:flex;align-items:center;gap:12px;color:var(--ink-500)}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--line-300)}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-top:22px}
+table{border-collapse:collapse;width:100%;min-width:620px;font-size:clamp(13px,3vw,14px)}
+th,td{text-align:left;padding:11px 13px;border-bottom:1px solid var(--line-200);vertical-align:top}
+th{font:500 11px/1.4 var(--font-mono);letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-500);border-bottom:1px solid var(--line-300);white-space:nowrap}
+tbody tr:hover{background:var(--paper-200)}
+td.num{font:600 14px/1.5 var(--font-mono);white-space:nowrap}
+.flag{display:inline-block;font:500 10px/1.6 var(--font-mono);letter-spacing:.1em;
+  text-transform:uppercase;padding:2px 8px;border:1px solid currentColor;white-space:nowrap}
+.flag.ok{color:var(--blue-800)}
+.flag.split{color:var(--red-600)}
+.flag.thin{color:var(--ink-500)}
+.card{background:var(--white);border:1px solid var(--line-200);padding:clamp(16px,4vw,26px);margin-top:16px}
+.card h3{font:700 clamp(16px,3.6vw,20px)/1.4 var(--font-zh);color:var(--blue-800);margin:0}
+.note{border-left:3px solid var(--line-300);padding:2px 0 2px 14px;margin-top:14px}
+.note.concern{border-left-color:var(--red-600)}
+.note.hold{border-left-color:var(--ink-500)}
+.note.agree{border-left-color:var(--blue-600)}
+.note b{display:block;font:500 11px/1.7 var(--font-mono);letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-500)}
+.note p{margin:4px 0 0;font-size:15px;line-height:1.8;color:var(--ink-900);white-space:pre-wrap}
+.gate{max-width:400px;margin-top:24px}
+.gate label{display:block;margin-top:16px;font:500 11px/1.4 var(--font-mono);
+  letter-spacing:.1em;text-transform:uppercase;color:var(--ink-500)}
+.gate input{display:block;width:100%;margin-top:6px;padding:11px 12px;border:1px solid var(--line-300);
+  background:var(--white);color:var(--ink-900);font:400 15px/1.5 var(--font-zh)}
+button{appearance:none;cursor:pointer;border:1px solid var(--red-600);background:var(--red-600);
+  color:var(--white);padding:12px 22px;font:700 15px/1.2 var(--font-zh);letter-spacing:.04em;margin-top:20px}
+button:hover{background:var(--red-700);border-color:var(--red-700)}
+button.ghost{background:none;color:var(--blue-800);border-color:var(--line-300);font-weight:500}
+button.ghost:hover{background:var(--paper-200);color:var(--blue-800);border-color:var(--blue-600)}
+.msg{margin-top:16px;font:500 13px/1.6 var(--font-mono);letter-spacing:.04em;color:var(--red-700)}
+.lede{font:400 clamp(15px,3.4vw,17px)/1.85 var(--font-zh);color:var(--ink-700);max-width:62ch;margin:18px 0 0}
+.actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.hidden{display:none}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="shell">
+    <span class="mono" style="color:var(--blue-200)">內部審閱 · RESPONSES</span>
+    <h1>審閱回覆彙總</h1>
+    <div class="rule"></div>
+    <p style="color:var(--blue-100);max-width:56ch;font-size:clamp(14px,3.2vw,16px)">
+      同事在<a href="./" style="color:var(--blue-300);border-bottom-color:rgba(185,199,238,.5)">審閱頁</a>逐節留下的立場與備註。
+      會議前掃一遍，已達共識的節次可以直接跳過。
+    </p>
+  </div>
+</header>
+
+<main class="shell">
+
+  <section id="gate">
+    <span class="mono eyebrow">存取 · ACCESS</span>
+    <h2 class="h2">輸入通行碼</h2>
+    <p class="lede">與審閱頁使用同一組通行碼。</p>
+    <div class="gate">
+      <label>通行碼<input id="code" type="password" autocomplete="off"></label>
+      <button id="go">載入回覆</button>
+      <div class="msg" id="msg"></div>
+    </div>
+  </section>
+
+  <section id="overview" class="hidden">
+    <span class="mono eyebrow">總覽 · BY SECTION</span>
+    <h2 class="h2">逐節立場</h2>
+    <p class="lede" id="summary-line"></p>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>節次</th><th>同意</th><th>疑慮</th><th>保留</th><th>狀態</th></tr></thead>
+        <tbody id="overview-body"></tbody>
+      </table>
+    </div>
+    <div class="actions" style="margin-top:22px">
+      <button class="ghost" id="refresh">重新載入</button>
+      <button class="ghost" id="csv">下載 CSV</button>
+      <button class="ghost" id="agenda">複製會議議程</button>
+    </div>
+  </section>
+
+  <section id="people" class="hidden">
+    <span class="mono eyebrow">參與 · WHO ANSWERED</span>
+    <h2 class="h2">回覆進度</h2>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>姓名</th><th>已回覆節次</th><th>備註則數</th><th>最後更新</th></tr></thead>
+        <tbody id="people-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="notes" class="hidden">
+    <span class="mono eyebrow">備註 · WHAT THEY WROTE</span>
+    <h2 class="h2">逐節備註原文</h2>
+    <p class="lede">只列出真的寫了字的回覆。這些就是會議上要談的實際內容。</p>
+    <div id="notes-body"></div>
+  </section>
+
+</main>
+
+<script src="review-config.js"></script>
+<script>
+(function () {
+  "use strict";
+
+  var API = (window.ZP_REVIEW_API || "").replace(/\/+$/, "");
+  var CHOICE_ZH = { agree: "同意", concern: "有疑慮", hold: "先保留" };
+  var SECTION_ZH = {};
+  var code = "";
+  var votes = [];
+
+  var el = function (id) { return document.getElementById(id); };
+
+  /* The review page's own section titles, so this page reads in Chinese rather than slugs.
+     Anything not listed falls back to the slug itself. */
+  SECTION_ZH = {
+    "what-changed-today": "今日變更",
+    "needs-a-decision": "待決事項",
+    "case-study": "案例：免費體驗賽貼文",
+    "colour": "色彩",
+    "type": "字體",
+    "lockup": "標誌",
+    "assets-and-licensing": "素材與授權",
+    "where-things-live": "檔案分工",
+    "notes": "頁面說明"
+  };
+
+  function label(slug) {
+    return SECTION_ZH[slug] || slug;
+  }
+
+  function load() {
+    if (!API || /YOUR-SUBDOMAIN/.test(API)) {
+      el("msg").textContent = "尚未設定 Worker 網址，請先編輯 review-config.js。";
+      return;
+    }
+    el("msg").textContent = "載入中…";
+    fetch(API + "/results", { headers: { "x-review-code": code } })
+      .then(function (res) {
+        if (res.status === 401) throw new Error("通行碼不正確。");
+        if (!res.ok) throw new Error("伺服器回應 " + res.status + "。");
+        return res.json();
+      })
+      .then(function (data) {
+        votes = data.votes || [];
+        el("msg").textContent = "";
+        el("gate").classList.add("hidden");
+        ["overview", "people", "notes"].forEach(function (id) { el(id).classList.remove("hidden"); });
+        render();
+      })
+      .catch(function (err) {
+        el("msg").textContent = err.message || "載入失敗。";
+      });
+  }
+
+  function bySection() {
+    var map = {};
+    votes.forEach(function (vote) {
+      var bucket = map[vote.section] || (map[vote.section] = { agree: 0, concern: 0, hold: 0, rows: [] });
+      if (bucket[vote.choice] !== undefined) bucket[vote.choice]++;
+      bucket.rows.push(vote);
+    });
+    return map;
+  }
+
+  /* A section is settled when everyone who answered it agreed and nobody left a note;
+     anything with a 疑慮 needs floor time, and a thin response count is its own warning. */
+  function verdict(bucket, voterCount) {
+    var answered = bucket.agree + bucket.concern + bucket.hold;
+    if (bucket.concern > 0) return { cls: "split", text: "需討論" };
+    if (bucket.hold > 0) return { cls: "thin", text: "有人保留" };
+    if (answered < Math.max(2, Math.ceil(voterCount * 0.6))) return { cls: "thin", text: "回覆過少" };
+    return { cls: "ok", text: "已共識" };
+  }
+
+  function render() {
+    var map = bySection();
+    var voters = {};
+    votes.forEach(function (vote) { voters[vote.voter] = true; });
+    var voterCount = Object.keys(voters).length;
+
+    el("summary-line").textContent =
+      voterCount + " 位同事回覆，涵蓋 " + Object.keys(map).length + " 個節次，共 " + votes.length + " 則立場。";
+
+    var overview = el("overview-body");
+    overview.innerHTML = "";
+    Object.keys(map).sort().forEach(function (slug) {
+      var bucket = map[slug];
+      var mark = verdict(bucket, voterCount);
+      var tr = document.createElement("tr");
+      tr.innerHTML =
+        "<td><b>" + label(slug) + "</b><br><span class='mono' style='color:var(--ink-500)'>" + slug + "</span></td>" +
+        "<td class='num'>" + bucket.agree + "</td>" +
+        "<td class='num'>" + bucket.concern + "</td>" +
+        "<td class='num'>" + bucket.hold + "</td>" +
+        "<td><span class='flag " + mark.cls + "'>" + mark.text + "</span></td>";
+      overview.appendChild(tr);
+    });
+
+    var people = {};
+    votes.forEach(function (vote) {
+      var person = people[vote.voter] || (people[vote.voter] = { sections: 0, notes: 0, last: "" });
+      person.sections++;
+      if (vote.note) person.notes++;
+      if (vote.updated > person.last) person.last = vote.updated;
+    });
+    var peopleBody = el("people-body");
+    peopleBody.innerHTML = "";
+    Object.keys(people).sort().forEach(function (name) {
+      var person = people[name];
+      var tr = document.createElement("tr");
+      tr.innerHTML =
+        "<td><b>" + name + "</b></td>" +
+        "<td class='num'>" + person.sections + "</td>" +
+        "<td class='num'>" + person.notes + "</td>" +
+        "<td class='num'>" + person.last.replace("T", " ").slice(0, 16) + "</td>";
+      peopleBody.appendChild(tr);
+    });
+
+    var notesBody = el("notes-body");
+    notesBody.innerHTML = "";
+    Object.keys(map).sort().forEach(function (slug) {
+      var written = map[slug].rows.filter(function (row) { return row.note; });
+      if (!written.length) return;
+      var card = document.createElement("div");
+      card.className = "card";
+      var head = document.createElement("h3");
+      head.textContent = label(slug);
+      card.appendChild(head);
+      written.forEach(function (row) {
+        var note = document.createElement("div");
+        note.className = "note " + row.choice;
+        var who = document.createElement("b");
+        who.textContent = row.voter + " · " + (CHOICE_ZH[row.choice] || row.choice);
+        var body = document.createElement("p");
+        body.textContent = row.note;
+        note.appendChild(who);
+        note.appendChild(body);
+        card.appendChild(note);
+      });
+      notesBody.appendChild(card);
+    });
+  }
+
+  /* An agenda built from the data: only the sections that are not settled, in order of heat. */
+  function agendaText() {
+    var map = bySection();
+    var voters = {};
+    votes.forEach(function (vote) { voters[vote.voter] = true; });
+    var voterCount = Object.keys(voters).length;
+
+    var open = Object.keys(map)
+      .map(function (slug) { return { slug: slug, bucket: map[slug], mark: verdict(map[slug], voterCount) }; })
+      .filter(function (item) { return item.mark.cls !== "ok"; })
+      .sort(function (a, b) { return b.bucket.concern - a.bucket.concern; });
+
+    var lines = ["ZIPA POKER 設計系統審閱 — 會議議程（依回覆自動產生）", ""];
+    if (!open.length) {
+      lines.push("所有節次皆已共識，本次會議可只做確認。");
+    } else {
+      open.forEach(function (item, index) {
+        lines.push(
+          String(index + 1).padStart(2, "0") + " " + label(item.slug) +
+          "（同意 " + item.bucket.agree + " · 疑慮 " + item.bucket.concern + " · 保留 " + item.bucket.hold + "）"
+        );
+        item.bucket.rows.filter(function (row) { return row.note; }).forEach(function (row) {
+          lines.push("   - " + row.voter + "（" + (CHOICE_ZH[row.choice] || row.choice) + "）：" + row.note);
+        });
+        lines.push("");
+      });
+    }
+    return lines.join("\n");
+  }
+
+  el("go").addEventListener("click", function () {
+    code = el("code").value.trim();
+    if (!code) { el("msg").textContent = "請輸入通行碼。"; return; }
+    load();
+  });
+  el("code").addEventListener("keydown", function (event) {
+    if (event.key === "Enter") el("go").click();
+  });
+  el("refresh").addEventListener("click", load);
+  el("csv").addEventListener("click", function () {
+    window.location.href = API + "/results.csv?code=" + encodeURIComponent(code);
+  });
+  el("agenda").addEventListener("click", function () {
+    var text = agendaText();
+    var button = el("agenda");
+    navigator.clipboard.writeText(text).then(
+      function () { button.textContent = "已複製到剪貼簿"; setTimeout(function () { button.textContent = "複製會議議程"; }, 2200); },
+      function () { window.prompt("複製以下內容：", text); }
+    );
+  });
+})();
+</script>
+</body>
+</html>
