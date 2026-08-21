@@ -1,0 +1,15 @@
+name = "zipa-review-api"
+main = "src/index.js"
+compatibility_date = "2026-08-01"
+# Per-version preview URLs are extra public endpoints this project has no use for.
+preview_urls = false
+
+[vars]
+# The only origin allowed to call this Worker. Change it if the page moves.
+ALLOWED_ORIGIN = "https://zipapoker2025-netizen.github.io"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "zipa-review"
+# Created 2026-08-21 in the APAC region.
+database_id = "c371c195-ec38-4b62-8d46-ac9f53e48bec"
