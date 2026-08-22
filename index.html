@@ -222,6 +222,36 @@
   .legend-swatch.solid{background:var(--danger-fill);}
   .legend-swatch.dashed{background:var(--danger-soft); border:1.5px dashed var(--danger);}
   .legend-swatch.goal{background:var(--surface-2); border:1.5px dashed var(--accent);}
+
+  /* --- 手機 ---
+     The desktop layout already wraps everywhere; what it lacks is restraint about space and
+     type size on a 375px screen. Tables keep their horizontal scroll — squeezing six columns
+     into a phone width costs more legibility than a sideways swipe does. */
+  @media (max-width:640px){
+    body{font-size:15.5px; line-height:1.65;}
+    .wrap{padding:0 14px 88px;}
+    .topbar-inner{padding:10px 14px; gap:12px;}
+    .topbar-title{font-size:15px;}
+    .topbar nav a{font-size:13px; padding:5px 7px;}
+    .masthead{padding:26px 0 18px;}
+    .masthead h1{font-size:25px; margin-bottom:12px;}
+    .kicker{font-size:12px; margin-bottom:8px;}
+    .scope-chips{margin-top:12px;}
+    section{padding:32px 0 4px; scroll-margin-top:54px;}
+    h2{font-size:21px;}
+    .sec-head{gap:6px; margin-bottom:4px;}
+    .sec-num{font-size:12px;}
+    .sec-note{font-size:13.5px; margin-bottom:16px;}
+    .stats{margin:20px 0 6px;}
+    .stat{padding:13px 14px 12px;}
+    .stat .num{font-size:23px;}
+    .agenda-flag{font-size:13px; padding:10px 12px; margin-bottom:18px;}
+    .dcard{padding:14px; margin-bottom:10px;}
+    .dcard-head{gap:8px; margin-bottom:8px;}
+    .dtitle{font-size:17px; min-width:0;}
+    table{min-width:460px; font-size:13px;}
+    th,td{padding:7px 9px;}
+  }
 </style>
 </head>
 <body>
@@ -238,11 +268,10 @@
       <a href="#assets">品牌資產</a>
       <a href="#ready-assets">素材清單＋外部方案</a>
       <a href="#accounts">帳號清冊</a>
-      <a href="#templates">範本缺口</a>
+      <a href="#templates">範本清單</a>
       <a href="#platforms">平台規格</a>
       <a href="#format-prereqs">格式表前置圖</a>
       <a href="#agenda">議程建議</a>
-      <a href="#sources">資料來源</a>
     </nav>
   </div>
 </div>
@@ -252,8 +281,6 @@
   <div class="masthead">
     <p class="kicker">設計系統討論・會前彙整</p>
     <h1>ZIPA POKER 設計系統／VI 資料彙整</h1>
-    <p>把散落在四處的素材與工作表收攏成一份，供這次設計系統討論會議直接使用。彙整日期 2026-08-21，涵蓋品牌素材包、VI 工作坊工作表（決議／範本／帳號／語彙／平台規格），以及 09-temp（Drive「01 資產盤點」對應的實際檔案）的素材分類結果。</p>
-    <p>本頁是<b>會前摘要</b>，不是取代工作表——當日決議仍請在〈ZIPA_VI工作坊_盤點與決議表〉xlsx 的「03 決議紀錄表」分頁上正式勾選、簽名。</p>
     <div class="scope-chips">
       <span class="scope-chip">品牌素材包 68 檔</span>
       <span class="scope-chip">VI 工作表 8 分頁</span>
@@ -293,7 +320,6 @@
     <div class="dcard partial">
       <div class="dcard-head"><span class="dcode">D02</span><span class="dtitle">主色定位</span><span class="badge partial">方向已定・色號待選</span></div>
       <p class="dtext"><b>決議：</b>核心三色＝藍＋紅＋白底（不是原建議的「藍主紅輔」，紅色升格為核心色之一）；延伸品牌＝金＋黑底，用於旗艦等級內容。實際色號見下方〈色彩系統〉，待你從選項中挑定。</p>
-      <p class="dwas">原建議：協會藍為主體色，競賽紅僅限賽事／CTA 使用，金僅限入會門檻線——這條已被會議推翻，紅色現在是核心色而非限定色。</p>
     </div>
 
     <div class="dcard done">
@@ -304,25 +330,21 @@
     <div class="dcard done">
       <div class="dcard-head"><span class="dcode">D04</span><span class="dtitle">賽事層級的視覺分級</span><span class="badge done">已決議</span></div>
       <p class="dtext"><b>決議：</b>改為四級：<b>免費／一般／錦標賽／旗艦</b>。免費／一般／錦標賽三級共用藍＋白＋紅（核心色）與延伸色彩／素材；旗艦級單獨用黑底金色（延伸品牌）。</p>
-      <p class="dwas">原建議：三級（例行藍底／旗艦紅色強調／限定金黑版）——已被會議修改為四級，且「旗艦」現在對應的是金黑版，紅色強調併入前三級的共用系統。</p>
     </div>
 
     <div class="dcard done">
       <div class="dcard-head"><span class="dcode">D05</span><span class="dtitle">字體系統</span><span class="badge done">已決議（範圍縮小）</span></div>
       <p class="dtext"><b>決議：</b>先不考慮印刷（僅需可輸出 PDF），主力是社群平台與網頁輸出，字體須同時滿足網頁可呈現、Word 可用、台灣繁體支援度佳、免費商用。Noto Sans TC 符合以上四項，可維持採用。</p>
-      <p class="dwas">原建議：Noto Sans TC／Barlow／Barlow Condensed／IBM Plex Mono 四字體＋週末內完成 @font-face 離線嵌入供印刷廠使用——印刷與離線嵌入這部分已不是現階段需求；Barlow／Barlow Condensed 是拉丁字重，Word 相容性建議下次順帶確認。</p>
     </div>
 
     <div class="dcard done">
       <div class="dcard-head"><span class="dcode">D06</span><span class="dtitle">語彙紅線表</span><span class="badge done">已決議</span></div>
       <p class="dtext"><b>決議：</b>採用四級風險分類表（🔴高／🟠中高／🟡中／🟢低，共 44 詞），即日生效，列為出稿審核 checklist 第一項；🔴🟠 為必檢查項目，尤其是廣告投放文案，完整表見〈語彙紅線表〉章節。定案後回頭掃既有貼文，🔴 高風險用詞的舊文考慮下架或編輯。</p>
-      <p class="dwas">原建議：先收集更多博弈敏感詞與替代文字清單再開會討論——已於會前完成完整清單並定案，範圍比原本 8 條大幅擴充為 44 條、並加上四級風險分層。</p>
     </div>
 
     <div class="dcard done">
       <div class="dcard-head"><span class="dcode">D07</span><span class="dtitle">18+ 與責任聲明固定句</span><span class="badge done">已決議</span></div>
       <p class="dtext"><b>決議：</b><span class="mono">「本活動限年滿18歲者參與，請理性參賽。」</span>固定句，適用於 IG 貼文、一般活動海報、賽事宣傳圖，定案後任何人不得自行潤飾。</p>
-      <p class="dwas">原草案：責任聲明句與年齡限制句分兩句、各給 3 個選項，且列 YT 說明欄也必放——會議合併成單一固定句，並把適用範圍縮小為 IG 貼文／一般活動海報／賽事宣傳圖三類；YT 說明欄是否沿用同句或改用較完整版本，尚未明確指示，建議會議上順帶確認一次即可定案，避免之後各自解讀。</p>
     </div>
 
     <div class="dcard done">
@@ -338,7 +360,6 @@
     <div class="dcard done">
       <div class="dcard-head"><span class="dcode">D10</span><span class="dtitle">唯一真相來源（SSOT）放哪</span><span class="badge done">已決議</span></div>
       <p class="dtext"><b>決議：</b>SSOT 放 Google Drive。</p>
-      <p class="dwas">原建議特別強調要用「協會共用雲端硬碟 Shared Drive」而非個人 My Drive，理由是檔案要屬於協會、人員異動不會整批消失——這條會議上沒特別區分，建議確認一下目前用的是哪一種，避免又落回個人帳號風險。</p>
     </div>
 
     <div class="dcard done">
@@ -349,7 +370,6 @@
     <div class="dcard done">
       <div class="dcard-head"><span class="dcode">D12</span><span class="dtitle">誰能改範本／出稿審核由誰簽</span><span class="badge done">已決議</span></div>
       <p class="dtext"><b>決議：</b>範本主檔 Owner 為行銷主管 <b>Alvin</b>，僅他可改動主檔。出稿雙簽由 <b>Chuck</b> 與 <b>Alvin</b> 共同簽核。</p>
-      <p class="dwas">原建議：雙簽分工為「賽務簽數字、行銷簽文字」——會議未沿用此分工方式，改為固定兩位簽核人（Chuck、Alvin）共同雙簽，未指定各自負責數字或文字；若之後想細分職掌可再補充。</p>
     </div>
   </section>
 
@@ -516,13 +536,11 @@
     <div class="dcard done" style="margin-top:14px;">
       <div class="dcard-head"><span class="dcode">句1＋2</span><span class="dtitle">責任聲明句＋年齡限制句</span><span class="badge done">已決議＝D07</span></div>
       <p class="dtext"><b>決議：</b><span class="mono">「本活動限年滿18歲者參與，請理性參賽。」</span>單一固定句，取代原本分開的責任聲明句與年齡限制句。適用：IG 貼文、一般活動海報、賽事宣傳圖。</p>
-      <p class="dwas">原草案：責任聲明句與年齡限制句分開各給 3 個選項（見決議 D07 的原建議說明），並建議加上圓形「18+」徽章圖示——是否仍加徽章圖示、YT 說明欄是否套用同句，會議上可順帶一併確認。</p>
     </div>
 
     <div class="dcard done" style="margin-top:10px;">
       <div class="dcard-head"><span class="dcode">句3</span><span class="dtitle">協會一句話簡介</span><span class="badge done">已決議</span></div>
       <p class="dtext"><b>決議：</b>「中華國際德州撲克協會（ZIPA POKER）致力於推動德州撲克智力運動化，以科學與理性精神培養專業競技人才。」贊助提案／媒體／YT 說明欄開頭統一用此句。</p>
-      <p class="dwas">原有 A／B／C 三個選項，取材自執行長崔克力 2025-12-01《警政時報》專訪原話（ZIPA 翻轉撲克形象.docx，已收錄進 Brand Book 本體），與 D01 名稱規範一致——會議選定選項 A，B／C 不採用。</p>
     </div>
 
     <div class="dcard done" style="margin-top:10px;">
@@ -533,7 +551,6 @@
         <li><b>3</b>邁向冠軍之路，從這裡開始。</li>
         <li><b>5</b>策略與實力的較量，等你入座。</li>
       </ul>
-      <p class="dwas">原有 5 個選項，會議選定 1／3／5 列為固定輪用組合，2「報名連結在下方，準備好上桌了嗎？」與 4「點擊報名，坐上你的位置。」不採用。句 3 呼應現有「邁向國際冠軍」系列海報（未命名設計.png），可延續既有調性。</p>
     </div>
   </section>
 
@@ -574,20 +591,6 @@
     </div>
     <div class="note">次要落差（同樣不採用外部版本）：D11 已定案的檔名格式為 <span class="mono">ZIPA_{YYYYMMDD}_{場館}_{賽事代碼}_{素材類型}_{版號}</span>；外部提案另用 <span class="mono">YYYYMMDD_平台_系列_主題_尺寸_v##_[DRAFT|REVIEW|APPROVED]</span>，多了平台與審核狀態欄位，維持 D11 版本、不合流。</div>
 
-    <h3 style="font-size:16px;margin:22px 0 10px;">海報 Posters</h3>
-    <div class="tablewrap">
-      <table>
-        <thead><tr><th>分類</th><th>現有項目</th><th>狀態</th></tr></thead>
-        <tbody>
-          <tr><td>賽事與排行</td><td>Bad Beat、勇者賽、幸運手牌、最大手牌、現場歡樂抽、超車、選手排行榜</td><td><span class="pill todo">需重製</span></td></tr>
-          <tr><td>會員制度與回饋</td><td>會員等級、會員中心、生日壽星優惠、舊帶新</td><td><span class="pill todo">需重製，且先核對制度細節</span></td></tr>
-          <tr><td>招募與人才</td><td>招募.png（畫面含牌局特寫，Meta 廣告易誤判）</td><td><span class="pill todo">需重製，改用團隊／培訓／頒獎畫面</span></td></tr>
-          <tr><td>品牌導流與場館</td><td>FB、官方群、環北路、未命名設計、文字檔</td><td><span class="pill todo">需重製，帳號／QR code 需重查</span></td></tr>
-          <tr><td>場館與實體輸出（印刷級 PDF）</td><td>文德會館（70×65cm）、最大手牌布告欄</td><td><span class="pill core">可沿用構圖，重製前需另訂出血／CMYK</span></td></tr>
-          <tr><td>新版方向參考（7 張）</td><td>品牌價值／招募／社群／場館／合作／排行榜／霓虹變體</td><td><span class="pill na">僅供風格判斷，非可編輯範本</span></td></tr>
-        </tbody>
-      </table>
-    </div>
 
     <h3 style="font-size:16px;margin:22px 0 10px;">文檔 Documents</h3>
     <div class="tablewrap">
@@ -659,36 +662,22 @@
     <div class="note">「艾沙」（Instagram／FB／Threads）與「協會公用 Email」的持有人「艾莎」拼法不同——若是同一人，建議統一寫法後再正式寫入清冊，避免日後對照出錯。</div>
   </section>
 
+
   <section id="templates">
-    <div class="sec-head"><h2>範本清單缺口</h2><span class="sec-num">04 範本清單</span></div>
-    <p class="sec-note">24 項範本中，13 項標為本季必做的★核心範本——目前只有 1 項有成品。沒人用的範本要砍掉，不要留著佔位。</p>
-    <div class="grid2">
-      <div>
-        <h3 style="font-size:15px;color:var(--ink-soft);margin:0 0 10px;font-weight:500;">對外（8 項核心）</h3>
-        <ul class="tlist">
-          <li><span class="tname">A4 賽事海報</span><span class="pill done">已有</span></li>
-          <li><span class="tname">IG 貼文版型：賽事公告</span><span class="pill todo">缺</span></li>
-          <li><span class="tname">IG 貼文版型：賽果戰報</span><span class="pill todo">缺</span></li>
-          <li><span class="tname">IG 貼文版型：選手介紹</span><span class="pill todo">缺</span></li>
-          <li><span class="tname">IG 貼文版型：知識小卡</span><span class="pill todo">缺</span></li>
-          <li><span class="tname">IG 限動版型：倒數</span><span class="pill todo">缺</span></li>
-          <li><span class="tname">IG 限動版型：現場直擊</span><span class="pill todo">缺</span></li>
-          <li><span class="tname">IG 限動版型：連結導流</span><span class="pill todo">缺</span></li>
-        </ul>
-      </div>
-      <div>
-        <h3 style="font-size:15px;color:var(--ink-soft);margin:0 0 10px;font-weight:500;">對內（5 項核心）</h3>
-        <ul class="tlist">
-          <li><span class="tname">賽事事實表 Fact Sheet</span><span class="pill todo">缺</span></li>
-          <li><span class="tname">出稿審核 Checklist</span><span class="pill todo">缺</span></li>
-          <li><span class="tname">素材命名與歸檔規範</span><span class="pill todo">缺</span></li>
-          <li><span class="tname">帳號與資產持有人清冊</span><span class="pill todo">缺</span></li>
-          <li><span class="tname">Brand Book 本體（PDF）</span><span class="pill core">缺（素材已定）</span></li>
-        </ul>
-      </div>
+    <div class="sec-head"><h2>範本清單</h2><span class="sec-num">海報 Posters</span></div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>分類</th><th>現有項目</th><th>狀態</th></tr></thead>
+        <tbody>
+          <tr><td>賽事與排行</td><td>Bad Beat、勇者賽、幸運手牌、最大手牌、現場歡樂抽、超車、選手排行榜</td><td><span class="pill todo">需重製</span></td></tr>
+          <tr><td>會員制度與回饋</td><td>會員等級、會員中心、生日壽星優惠、舊帶新</td><td><span class="pill todo">需重製，且先核對制度細節</span></td></tr>
+          <tr><td>招募與人才</td><td>招募.png（畫面含牌局特寫，Meta 廣告易誤判）</td><td><span class="pill todo">需重製，改用團隊／培訓／頒獎畫面</span></td></tr>
+          <tr><td>品牌導流與場館</td><td>FB、官方群、環北路、未命名設計、文字檔</td><td><span class="pill todo">需重製，帳號／QR code 需重查</span></td></tr>
+          <tr><td>場館與實體輸出（印刷級 PDF）</td><td>文德會館（70×65cm）、最大手牌布告欄</td><td><span class="pill core">可沿用構圖，重製前需另訂出血／CMYK</span></td></tr>
+          <tr><td>新版方向參考（7 張）</td><td>品牌價值／招募／社群／場館／合作／排行榜／霓虹變體</td><td><span class="pill na">僅供風格判斷，非可編輯範本</span></td></tr>
+        </tbody>
+      </table>
     </div>
-    <div class="note">Brand Book 本體與贊助合作提案書已有指定素材來源——<code>ZIPA 翻轉撲克形象.docx</code>（《警政時報》協會專訪）已決議摘錄收錄進兩者，不必重寫；出稿審核走 D12 定案的 Chuck＋Alvin 雙簽。</div>
-    <div class="note">另有 11 項中／低優先範本待排程：YT 縮圖版型、月賽程表（月曆式）、獎勵結構表版型、新聞稿／對外公文格式、贊助合作提案書、入會說明／會員權益一頁式、賽後戰報表、攝影 Shot List、現場執行流程單 Run of Show、內容日曆（月視角），以及已完成的<b>會議決議紀錄表</b>（即本工作表〈03〉分頁）。</div>
   </section>
 
   <section id="platforms">
@@ -843,19 +832,6 @@
     </ol>
   </section>
 
-  <section id="sources">
-    <h2>資料來源</h2>
-    <p class="sec-note">本彙整取自以下資料夾，原始檔案未被修改：</p>
-    <div class="srclist">
-      <div class="srcrow"><span class="srcpath">Mars（本專案資料夾）</span><span class="srcdesc">目前為空，可作為本次彙整與後續設計系統檔案的存放處</span></div>
-      <div class="srcrow"><span class="srcpath">Downloads / ZIPA_Design_System_Asset_Pack</span><span class="srcdesc">品牌素材包 01–06 分類資料夾 + 99_Documentation（manifest.csv、README.txt）</span></div>
-      <div class="srcrow"><span class="srcpath">Codex / 2026-08-20 / …/ZIPA_VI工作坊_盤點與決議表_Drive盤點_2026-08-20.xlsx</span><span class="srcdesc">主工作表，共 8 分頁：使用說明／資產盤點／帳號持有人清冊／決議紀錄表／範本清單／平台規格／賽事FactSheet／出稿審核／語彙紅線表</span></div>
-      <div class="srcrow"><span class="srcpath">Codex / 2026-08-21 / …/Instagram_整理_2026-08-20</span><span class="srcdesc">IG 匯出資料的索引與統計報告（含 1 份敏感私訊明細檔，使用時請留意）</span></div>
-      <div class="srcrow"><span class="srcpath">Downloads / 09-temp（對應 Drive「01 資產盤點」A001–A023）</span><span class="srcdesc">實際素材檔案；分類結果見同批送出的 <code>ZIPA_素材分類清單.xlsx</code>（已分類 32 件／視覺風格彙總／待分類清單）</span></div>
-      <div class="srcrow"><span class="srcpath">Downloads / codex-20260821…/codex（3 個資料夾：ZIPA_VI_行銷整合庫_完整版、ZIPA_新VI_設計工作包、zipa-instagram-design-system）</span><span class="srcdesc">另一批獨立產出的完整分類與平行 VI 提案；提案本身已裁定不採用，但海報／文檔／素材／圖片分類結果仍收錄於「素材清單＋外部方案」章節</span></div>
-    </div>
-    <footer>ZIPA VI 工作坊彙整 · 彙整日期 2026-08-21 · 供設計系統討論會議使用，非正式協會規定文件</footer>
-  </section>
 
 </div>
 

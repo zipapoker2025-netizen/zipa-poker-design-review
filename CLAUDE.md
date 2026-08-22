@@ -7,10 +7,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 The internal pre-meeting page for ZIPA POKER's design system / VI work, served by GitHub Pages at
 https://zipapoker2025-netizen.github.io/zipa-poker-design-review/
 
-`index.html` is currently **ZIPA POKER 設計系統／VI 資料彙整** — twelve sections covering the D01–D12
-decisions, colour options, the lexicon red lines, asset and account inventories, template gaps and
-platform specs. It replaced the earlier 1A review page on 2026-08-22; that page is not linked from
-anywhere any more but remains in git history.
+`index.html` is currently **ZIPA POKER 設計系統／VI 資料彙整** — eleven sections covering the D01–D12
+decisions, colour options, the lexicon red lines, asset and account inventories, the poster template
+list and platform specs. It replaced the earlier 1A review page on 2026-08-22; that page is not
+linked from anywhere any more but remains in git history.
+
+The page is read on phones, so edits should hold that line: no fixed pixel widths, every table
+inside `.tablewrap`, and prose kept to what a decision actually needs. Explanatory preamble and the
+superseded 原建議 lines were cut on 2026-08-22 for that reason — resist adding them back.
 
 The document is authored elsewhere and copied in whole. No build step, no dependencies. Push and
 Pages redeploys.
@@ -51,11 +55,12 @@ Note that `ZIPA POKER Design System/review/index.html` in the sibling repo is a 
 
 | Section | Behaviour | Vote id |
 |---|---|---|
-| `id="sources"` | skipped — reference list, nothing to take a position on | — |
+| `id="overview"` | skipped — a snapshot of where things stand, not a proposition | — |
 | `id="decisions"` | one control per `.dcard` inside it, not one for the section | `decisions-d01` … from `.dcode` |
 | anything else | one control for the whole section | the section's own `id` |
 
-Both lists live at the top of the file as `SKIP_SECTIONS` and `CARD_SECTIONS`. A section with no
+Both lists live at the top of the file as `SKIP_SECTIONS` and `CARD_SECTIONS`. `SKIP_SECTIONS` also
+still names `sources`, which no longer exists — harmless, and correct again if it returns. A section with no
 `id` falls back to the English half of its `.eyebrow` (`色彩 · COLOUR` → `colour`), which is how the
 old 1A page worked and why that page's answers survived its Chinese headlines being rewritten.
 
@@ -94,7 +99,7 @@ cannot serve as both a button fill and a label colour once dark mode flips the l
 | `index.html` | The page. Authored externally — see above. |
 | `review-vote.js` | Injects the controls. Self-contained, styles included. |
 | `review-config.js` | The only place the Worker URL is written. |
-| `results.html` | Tallies, who answered, every note, CSV, one-click agenda. |
+| `results.html` | Tallies, who answered, every note, CSV, one-click agenda. Currently 21 vote points. |
 | `worker/` | Cloudflare Worker + D1 that stores the answers. |
 
 ## Backend

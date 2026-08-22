@@ -19,8 +19,9 @@
   var PENDING_KEY = "zp-review-pending";
   var LOCAL_KEY = "zp-review-local";
 
-  /* Sections that exist to be read, not voted on. */
-  var SKIP_SECTIONS = { sources: true };
+  /* Sections that exist to be read, not voted on: a snapshot of where things stand, and
+     (should it return) a bibliography. Neither is a position anyone can take. */
+  var SKIP_SECTIONS = { overview: true, sources: true };
   /* Voted card by card instead, one control per decision. */
   var CARD_SECTIONS = { decisions: true };
 
@@ -468,7 +469,20 @@
       ".zpv-pill-link{color:inherit;opacity:.85;font:500 11px/1.3 " + mono + ";letter-spacing:.1em;",
       "text-transform:uppercase;text-decoration:none;border-bottom:1px solid currentColor}",
       ".zpv-pill-link:hover{opacity:1}",
-      "@media print{.zpv-pill{display:none}}"
+      "@media print{.zpv-pill{display:none}}",
+      /* On a phone the three options belong on one row; the English caption is the part
+         that can go, not the layout. */
+      "@media (max-width:480px){",
+      ".zpv{padding:13px 14px;margin:18px 0 4px}",
+      ".zpv-card{margin:12px 0 2px}",
+      ".zpv-opts{grid-template-columns:repeat(3,1fr);gap:6px;margin-top:12px}",
+      ".zpv-opt{padding:9px 6px;text-align:center}",
+      ".zpv-opt-zh{font-size:14px}",
+      ".zpv-opt-en{display:none}",
+      ".zpv-note{font-size:13.5px}",
+      ".zpv-pill{right:10px;bottom:10px;padding:7px 10px;gap:8px}",
+      ".zpv-pill-label{display:none}",
+      "}"
     ].join("");
     document.head.appendChild(css);
   }
