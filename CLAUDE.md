@@ -7,9 +7,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 The internal pre-meeting page for ZIPA POKER's design system / VI work, served by GitHub Pages at
 https://zipapoker2025-netizen.github.io/zipa-poker-design-review/
 
-`index.html` is currently **ZIPA POKER 設計系統／VI 資料彙整** — eleven sections covering the D01–D12
-decisions, colour options, the lexicon red lines, asset and account inventories, the poster template
-list and platform specs. It replaced the earlier 1A review page on 2026-08-22; that page is not
+`index.html` is currently **ZIPA POKER 設計系統／VI 資料彙整** — eight sections covering the D01–D12
+decisions, colour options, the lexicon red lines, the account inventory, the poster template list,
+platform specs and the format prerequisite map. It replaced the earlier 1A review page on 2026-08-22; that page is not
 linked from anywhere any more but remains in git history.
 
 The page is read on phones, so edits should hold that line: no fixed pixel widths, every table
@@ -99,7 +99,7 @@ cannot serve as both a button fill and a label colour once dark mode flips the l
 | `index.html` | The page. Authored externally — see above. |
 | `review-vote.js` | Injects the controls. Self-contained, styles included. |
 | `review-config.js` | The only place the Worker URL is written. |
-| `results.html` | Tallies, who answered, every note, CSV, one-click agenda. Currently 21 vote points. |
+| `results.html` | Tallies, who answered, every note, CSV, one-click agenda. Currently 18 vote points. |
 | `worker/` | Cloudflare Worker + D1 that stores the answers. |
 
 ## Backend

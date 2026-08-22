@@ -103,7 +103,7 @@ button.ghost:hover{background:var(--paper-200);color:var(--blue-800);border-colo
     <h1>審閱回覆彙總</h1>
     <div class="rule"></div>
     <p style="color:var(--blue-100);max-width:56ch;font-size:clamp(14px,3.2vw,16px)">
-      同事在<a href="./" style="color:var(--blue-300);border-bottom-color:rgba(185,199,238,.5)">彙整頁</a>留下的立場與備註：D01–D12 逐條，其餘章節整節。共 21 項。
+      同事在<a href="./" style="color:var(--blue-300);border-bottom-color:rgba(185,199,238,.5)">彙整頁</a>留下的立場與備註：D01–D12 逐條，其餘章節整節。共 18 項。
       會議前掃一遍，已達共識的節次可以直接跳過。
     </p>
   </div>
@@ -182,23 +182,20 @@ button.ghost:hover{background:var(--paper-200);color:var(--blue-800);border-colo
     "decisions-d05": "D05 字體系統",
     "decisions-d06": "D06 語彙紅線表",
     "decisions-d07": "D07 18+ 與責任聲明固定句",
-    "decisions-d08": "D08 平台取捨：FB 去留／LINE 開不開",
+    "decisions-d08": "D08 平台取捨：FB 去留與是否經營抖音",
     "decisions-d09": "D09 各平台角色定義",
     "decisions-d10": "D10 唯一真相來源（SSOT）放哪",
     "decisions-d11": "D11 檔案命名規則",
     "decisions-d12": "D12 誰能改範本／出稿審核由誰簽",
     "palette": "色彩系統選項",
     "lexicon": "語彙紅線表",
-    "assets": "品牌資產現況",
-    "ready-assets": "現有素材清單・依會議分類",
     "accounts": "帳號持有人清冊",
     "templates": "範本清單",
     "platforms": "平台規格快查",
-    "format-prereqs": "各平台格式表・前置決議圖",
-    "agenda": "建議討論順序"
+    "format-prereqs": "各平台格式表・前置決議圖"
   };
 
-  var SECTION_ORDER = ["decisions-d01", "decisions-d02", "decisions-d03", "decisions-d04", "decisions-d05", "decisions-d06", "decisions-d07", "decisions-d08", "decisions-d09", "decisions-d10", "decisions-d11", "decisions-d12", "palette", "lexicon", "assets", "ready-assets", "accounts", "templates", "platforms", "format-prereqs", "agenda"];
+  var SECTION_ORDER = ["decisions-d01", "decisions-d02", "decisions-d03", "decisions-d04", "decisions-d05", "decisions-d06", "decisions-d07", "decisions-d08", "decisions-d09", "decisions-d10", "decisions-d11", "decisions-d12", "palette", "lexicon", "accounts", "templates", "platforms", "format-prereqs"];
 
   /* Alphabetical order would scatter D01–D12 among the sections; follow the page instead. */
   function ordered(keys) {
