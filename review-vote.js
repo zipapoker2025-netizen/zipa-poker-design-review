@@ -1,9 +1,14 @@
 /* ZIPA POKER — 審閱表態元件 / review vote widget.
-   Attaches a 同意 / 有疑慮 / 先保留 control plus a note field to every section of the
-   review page, and posts each answer to the Cloudflare Worker named in the script tag's
-   data-api attribute. Built in the same system as the page: 紙白 ground, 協會藍 structure,
-   競賽紅 only where a reservation is actually registered, square corners, 1px hairlines,
-   no shadow. Degrades to local-only storage when the Worker is unreachable. */
+   Attaches a 同意 / 有疑慮 / 先保留 control plus a note field to each thing worth a position,
+   and posts every answer to the Cloudflare Worker named in review-config.js.
+
+   Two granularities, because the page mixes them: each decision card in the 待拍板決議 section
+   gets its own control (D01…D12 are what the meeting actually runs through), and every other
+   section gets one for the section as a whole.
+
+   Styling borrows the host page's own tokens with fallbacks, so the widget follows whichever
+   design system it lands in — including that page's dark mode — rather than importing a second
+   palette on top of it. Degrades to local-only storage when the Worker is unreachable. */
 (function () {
   "use strict";
 
@@ -13,6 +18,11 @@
   var IDENTITY_KEY = "zp-review-identity";
   var PENDING_KEY = "zp-review-pending";
   var LOCAL_KEY = "zp-review-local";
+
+  /* Sections that exist to be read, not voted on. */
+  var SKIP_SECTIONS = { sources: true };
+  /* Voted card by card instead, one control per decision. */
+  var CARD_SECTIONS = { decisions: true };
 
   var CHOICES = [
     { id: "agree", zh: "同意", en: "AGREE" },
@@ -43,25 +53,30 @@
   var localAnswers = read(LOCAL_KEY, {});
   var blocks = {};
 
-  /* ---------- section identity ----------
-     The eyebrow reads "今日變更 · WHAT CHANGED TODAY". The English half is the stable
-     half: the Chinese headline can be rewritten between drafts without orphaning votes. */
+  /* ---------- ids ----------
+     A section's own id is the stable handle when it has one. Otherwise fall back to the English
+     half of the eyebrow ("色彩 · COLOUR" → colour), which survives the Chinese headline being
+     rewritten between drafts. Either way the id must outlive edits to the prose, or answers
+     already collected orphan themselves. */
 
-  function slugFor(section, index) {
-    var eyebrow = section.querySelector(".eyebrow");
-    var text = eyebrow ? eyebrow.textContent : "";
-    var english = text.split("·").pop();
-    var slug = english
+  function slugify(text) {
+    return String(text)
       .toLowerCase()
       .replace(/&/g, " and ")
       .replace(/[^a-z0-9]+/g, "-")
-      .replace(/^-|-$/g, "");
-    return slug || "section-" + (index + 1);
+      .replace(/^-|-$/g, "")
+      .slice(0, 48);
   }
 
-  function titleFor(section) {
-    var h2 = section.querySelector(".h2");
-    return h2 ? h2.textContent.trim() : "";
+  function sectionSlug(section, index) {
+    if (section.id && /^[A-Za-z0-9_-]+$/.test(section.id)) return slugify(section.id);
+    var eyebrow = section.querySelector(".eyebrow");
+    return slugify(eyebrow ? eyebrow.textContent.split("·").pop() : "") || "section-" + (index + 1);
+  }
+
+  function sectionTitle(section) {
+    var heading = section.querySelector(".h2, h2");
+    return heading ? heading.textContent.trim() : "";
   }
 
   /* ---------- network ---------- */
@@ -184,33 +199,25 @@
     );
   }
 
-  function buildBlock(section, slug, title) {
+  function buildBlock(host, slug, title, scale) {
     var wrap = document.createElement("div");
-    wrap.className = "zpv";
+    wrap.className = "zpv" + (scale === "card" ? " zpv-card" : "");
     wrap.dataset.section = slug;
 
     var head = document.createElement("div");
     head.className = "zpv-head";
     var label = document.createElement("span");
-    label.className = "mono zpv-label";
-    label.textContent = "你的意見 · YOUR CALL";
+    label.className = "zpv-label";
+    label.textContent = scale === "card" ? "這條你的立場" : "這一節你的立場";
     var tally = document.createElement("span");
-    tally.className = "mono zpv-tally";
-    tally.textContent = "";
+    tally.className = "zpv-tally";
     head.appendChild(label);
     head.appendChild(tally);
 
     var opts = document.createElement("div");
     opts.className = "zpv-opts";
 
-    var block = {
-      slug: slug,
-      title: title,
-      el: wrap,
-      tally: tally,
-      buttons: {},
-      choice: null
-    };
+    var block = { slug: slug, title: title, el: wrap, tally: tally, buttons: {}, choice: null };
 
     CHOICES.forEach(function (choice) {
       var button = document.createElement("button");
@@ -219,7 +226,7 @@
       button.dataset.choice = choice.id;
       button.setAttribute("aria-pressed", "false");
       button.innerHTML =
-        '<span class="zpv-opt-zh">' + choice.zh + '</span><span class="mono zpv-opt-en">' + choice.en + "</span>";
+        '<span class="zpv-opt-zh">' + choice.zh + '</span><span class="zpv-opt-en">' + choice.en + "</span>";
       button.addEventListener("click", function () {
         if (!identity) {
           pendingClick = { block: block, choice: choice.id };
@@ -260,7 +267,7 @@
 
     block.note = note;
     block.state = state;
-    section.appendChild(wrap);
+    host.appendChild(wrap);
     return block;
   }
 
@@ -321,12 +328,12 @@
     dialog.className = "zpv-dialog";
     dialog.innerHTML =
       '<form method="dialog">' +
-      '<span class="mono zpv-label">開始之前 · IDENTIFY YOURSELF</span>' +
+      '<span class="zpv-label">開始之前 · IDENTIFY YOURSELF</span>' +
       "<h3>請留下姓名與通行碼</h3>" +
       "<p>姓名會標在你的每一則回覆旁，方便會議上直接對話。通行碼由發起人提供，只用來擋掉不相干的人。</p>" +
       '<label>姓名<input name="voter" required maxlength="40" autocomplete="name"></label>' +
       '<label>通行碼<input name="code" required maxlength="60" autocomplete="off"></label>' +
-      '<div class="zpv-dialog-actions"><button value="ok" class="zpv-go">開始審閱</button></div>' +
+      '<div class="zpv-dialog-actions"><button value="ok" class="zpv-go">開始</button></div>' +
       "</form>";
     document.body.appendChild(dialog);
 
@@ -368,19 +375,18 @@
 
   function renderIdentityBar() {
     if (!pill) return;
-    var who = pill.querySelector(".zpv-pill-who");
-    who.textContent = identity ? identity.voter : "尚未署名";
+    pill.querySelector(".zpv-pill-who").textContent = identity ? identity.voter : "尚未署名";
   }
 
   function buildPill() {
     pill = document.createElement("div");
     pill.className = "zpv-pill";
     pill.innerHTML =
-      '<span class="mono zpv-pill-label">已回覆</span>' +
-      '<span class="mono zpv-pill-count">0 / 0</span>' +
+      '<span class="zpv-pill-label">已回覆</span>' +
+      '<span class="zpv-pill-count">0 / 0</span>' +
       '<span class="zpv-pill-sep"></span>' +
       '<button type="button" class="zpv-pill-who">尚未署名</button>' +
-      '<a class="mono zpv-pill-link" href="results.html">彙總</a>';
+      '<a class="zpv-pill-link" href="results.html">彙總</a>';
     document.body.appendChild(pill);
     pill.querySelector(".zpv-pill-who").addEventListener("click", function () {
       openIdentity(true);
@@ -388,67 +394,80 @@
     renderIdentityBar();
   }
 
-  /* ---------- styles ---------- */
+  /* ---------- styles ----------
+     Every colour is `var(--host-token, var(--1a-token, #literal))`: the page's own palette first,
+     the review page's palette second, a literal last. That is what lets one widget sit correctly
+     in both documents, and follow the host into dark mode without knowing the mode exists. */
 
   function injectStyles() {
+    var ink = "var(--ink,var(--ink-900,#101418))";
+    var soft = "var(--ink-soft,var(--ink-500,#5C6169))";
+    var line = "var(--line,var(--line-300,#D9DBD6))";
+    var surface = "var(--surface,var(--white,#FFFFFF))";
+    var surface2 = "var(--surface-2,var(--paper-100,#F2F2EE))";
+    var paper = "var(--paper,var(--paper-050,#F5F6F4))";
+    var accent = "var(--accent,var(--blue-800,#1B3A8C))";
+    var accentFill = "var(--accent-fill,var(--blue-800,#1B3A8C))";
+    var onAccent = "var(--on-accent,#FFFFFF)";
+    var dangerFill = "var(--danger-fill,var(--red-600,#C6402E))";
+    var onDanger = "var(--on-danger,#FFFFFF)";
+    var zh = 'var(--font-zh,"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif)';
+    var mono = 'var(--font-mono,"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace)';
+
     var css = document.createElement("style");
     css.textContent = [
-      ".zpv{margin-top:clamp(28px,5vw,44px);border:1px solid var(--line-300);",
-      "background:var(--white);padding:clamp(16px,3.6vw,24px)}",
-      ".zpv-head{display:flex;align-items:baseline;justify-content:space-between;gap:14px;flex-wrap:wrap}",
-      ".zpv-label{color:var(--blue-800)}",
-      ".zpv-tally{color:var(--ink-500);letter-spacing:.08em;text-transform:none}",
-      ".zpv-opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,116px),1fr));",
-      "gap:8px;margin-top:16px}",
-      ".zpv-opt{appearance:none;cursor:pointer;background:var(--paper-100);color:var(--ink-700);",
-      "border:1px solid var(--line-300);padding:11px 12px;text-align:left;",
+      ".zpv{margin:22px 0 4px;border:1px solid " + line + ";border-radius:2px;",
+      "background:" + surface + ";padding:16px 18px;font-family:" + zh + "}",
+      ".zpv-card{margin:14px 0 2px;background:" + paper + "}",
+      ".zpv-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}",
+      ".zpv-label{font:500 11px/1.4 " + mono + ";letter-spacing:.12em;text-transform:uppercase;color:" + accent + "}",
+      ".zpv-tally{font:500 11px/1.4 " + mono + ";letter-spacing:.06em;color:" + soft + "}",
+      ".zpv-opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,112px),1fr));gap:8px;margin-top:14px}",
+      ".zpv-opt{appearance:none;cursor:pointer;border-radius:2px;background:" + surface2 + ";color:" + soft + ";",
+      "border:1px solid " + line + ";padding:10px 12px;text-align:left;font-family:" + zh + ";",
       "transition:background .12s linear,border-color .12s linear,color .12s linear}",
-      ".zpv-opt:hover{border-color:var(--blue-600);color:var(--blue-800)}",
-      ".zpv-opt:focus-visible{outline:2px solid var(--blue-600);outline-offset:2px}",
-      ".zpv-opt-zh{display:block;font:700 15px/1.3 var(--font-zh);letter-spacing:.02em}",
-      ".zpv-opt-en{display:block;margin-top:3px;font-size:10px;opacity:.72}",
-      '.zpv-opt.is-on{background:var(--blue-800);border-color:var(--blue-800);color:var(--white)}',
-      '.zpv-opt.is-on[data-choice="concern"]{background:var(--red-600);border-color:var(--red-600)}',
-      '.zpv-opt.is-on[data-choice="hold"]{background:var(--ink-700);border-color:var(--ink-700)}',
-      ".zpv-note{display:block;width:100%;margin-top:10px;padding:11px 12px;",
-      "border:1px solid var(--line-300);background:var(--paper-050);color:var(--ink-900);",
-      "font:400 14px/1.7 var(--font-zh);resize:vertical}",
-      ".zpv-note:focus-visible{outline:2px solid var(--blue-600);outline-offset:-1px}",
-      ".zpv-state{margin-top:10px;font:500 11px/1.5 var(--font-mono);letter-spacing:.09em;",
-      "text-transform:uppercase;color:var(--ink-500)}",
-      '.zpv-state[data-kind="saved"]{color:var(--blue-800)}',
-      '.zpv-state[data-kind="warn"]{color:var(--red-700);text-transform:none;letter-spacing:.04em}',
-      '.zpv-state[data-kind="saving"]{color:var(--ink-700)}',
+      ".zpv-opt:hover{border-color:" + accent + ";color:" + accent + "}",
+      ".zpv-opt:focus-visible{outline:2px solid " + accent + ";outline-offset:2px}",
+      ".zpv-opt-zh{display:block;font:700 15px/1.3 " + zh + ";letter-spacing:.02em}",
+      ".zpv-opt-en{display:block;margin-top:2px;font:500 10px/1.4 " + mono + ";letter-spacing:.1em;opacity:.7}",
+      ".zpv-opt.is-on{background:" + accentFill + ";border-color:" + accentFill + ";color:" + onAccent + "}",
+      '.zpv-opt.is-on[data-choice="concern"]{background:' + dangerFill + ";border-color:" + dangerFill + ";color:" + onDanger + "}",
+      '.zpv-opt.is-on[data-choice="hold"]{background:' + soft + ";border-color:" + soft + ";color:" + surface + "}",
+      ".zpv-note{display:block;width:100%;margin-top:10px;padding:10px 12px;border-radius:2px;",
+      "border:1px solid " + line + ";background:" + paper + ";color:" + ink + ";",
+      "font:400 14px/1.7 " + zh + ";resize:vertical}",
+      ".zpv-note:focus-visible{outline:2px solid " + accent + ";outline-offset:-1px}",
+      ".zpv-state{margin-top:9px;font:500 11px/1.5 " + mono + ";letter-spacing:.08em;text-transform:uppercase;color:" + soft + "}",
+      '.zpv-state[data-kind="saved"]{color:' + accent + "}",
+      '.zpv-state[data-kind="warn"]{color:' + dangerFill + ";text-transform:none;letter-spacing:.02em}",
+      '.zpv-state[data-kind="saving"]{color:' + soft + "}",
 
-      ".zpv-dialog{border:1px solid var(--blue-800);background:var(--white);color:var(--ink-900);",
-      "padding:clamp(20px,4vw,32px);max-width:420px;width:calc(100% - 32px)}",
-      ".zpv-dialog::backdrop{background:rgba(15,26,60,.55)}",
-      ".zpv-dialog h3{font:700 22px/1.35 var(--font-zh);color:var(--blue-800);margin:12px 0 0;letter-spacing:.02em}",
-      ".zpv-dialog p{font:400 14px/1.8 var(--font-zh);color:var(--ink-700);margin:10px 0 0}",
-      ".zpv-dialog label{display:block;margin-top:16px;font:500 11px/1.4 var(--font-mono);",
-      "letter-spacing:.1em;text-transform:uppercase;color:var(--ink-500)}",
-      ".zpv-dialog input{display:block;width:100%;margin-top:6px;padding:11px 12px;",
-      "border:1px solid var(--line-300);background:var(--paper-050);color:var(--ink-900);",
-      "font:400 15px/1.5 var(--font-zh)}",
-      ".zpv-dialog input:focus-visible{outline:2px solid var(--blue-600);outline-offset:-1px}",
+      ".zpv-dialog{border:1px solid " + accent + ";border-radius:2px;background:" + surface + ";color:" + ink + ";",
+      "padding:26px;max-width:420px;width:calc(100% - 32px);font-family:" + zh + "}",
+      ".zpv-dialog::backdrop{background:rgba(13,17,29,.6)}",
+      ".zpv-dialog h3{font:700 21px/1.35 " + zh + ";color:" + accent + ";margin:12px 0 0;letter-spacing:.02em}",
+      ".zpv-dialog p{font:400 14px/1.8 " + zh + ";color:" + soft + ";margin:10px 0 0}",
+      ".zpv-dialog label{display:block;margin-top:16px;font:500 11px/1.4 " + mono + ";",
+      "letter-spacing:.1em;text-transform:uppercase;color:" + soft + "}",
+      ".zpv-dialog input{display:block;width:100%;margin-top:6px;padding:11px 12px;border-radius:2px;",
+      "border:1px solid " + line + ";background:" + paper + ";color:" + ink + ";font:400 15px/1.5 " + zh + "}",
+      ".zpv-dialog input:focus-visible{outline:2px solid " + accent + ";outline-offset:-1px}",
       ".zpv-dialog-actions{margin-top:22px}",
-      ".zpv-go{appearance:none;cursor:pointer;width:100%;border:1px solid var(--red-600);",
-      "background:var(--red-600);color:var(--white);padding:13px 16px;",
-      "font:700 15px/1.2 var(--font-zh);letter-spacing:.04em}",
-      ".zpv-go:hover{background:var(--red-700);border-color:var(--red-700)}",
+      ".zpv-go{appearance:none;cursor:pointer;width:100%;border-radius:2px;border:1px solid " + dangerFill + ";",
+      "background:" + dangerFill + ";color:" + onDanger + ";padding:13px 16px;font:700 15px/1.2 " + zh + ";letter-spacing:.04em}",
 
-      ".zpv-pill{position:fixed;right:clamp(12px,3vw,24px);bottom:clamp(12px,3vw,24px);z-index:50;",
-      "display:flex;align-items:center;gap:10px;background:var(--blue-950);color:var(--white);",
-      "border:1px solid var(--blue-900);padding:9px 14px;max-width:calc(100% - 24px)}",
-      ".zpv-pill-label{opacity:.62}",
-      ".zpv-pill-count{font-weight:600}",
-      ".zpv-pill.is-done .zpv-pill-count{color:#9DE2B4}",
-      ".zpv-pill-sep{width:1px;height:15px;background:rgba(255,255,255,.24)}",
-      ".zpv-pill-who{appearance:none;background:none;border:0;cursor:pointer;color:var(--white);",
-      "font:400 13px/1.3 var(--font-zh);padding:0;max-width:9em;overflow:hidden;",
-      "text-overflow:ellipsis;white-space:nowrap;border-bottom:1px solid rgba(255,255,255,.4)}",
-      ".zpv-pill-link{color:var(--blue-300);border-bottom:1px solid rgba(185,199,238,.4);font-size:11px}",
-      ".zpv-pill-link:hover{color:var(--white)}",
+      ".zpv-pill{position:fixed;right:16px;bottom:16px;z-index:60;display:flex;align-items:center;gap:10px;",
+      "background:" + accentFill + ";color:" + onAccent + ";border:1px solid " + accentFill + ";border-radius:2px;",
+      "padding:8px 13px;max-width:calc(100% - 32px);font-family:" + zh + "}",
+      ".zpv-pill-label{font:500 11px/1.3 " + mono + ";letter-spacing:.12em;text-transform:uppercase;opacity:.7}",
+      ".zpv-pill-count{font:600 12px/1.3 " + mono + ";letter-spacing:.06em}",
+      ".zpv-pill-sep{width:1px;height:14px;background:currentColor;opacity:.3}",
+      ".zpv-pill-who{appearance:none;background:none;border:0;cursor:pointer;color:inherit;font:400 13px/1.3 " + zh + ";",
+      "padding:0;max-width:9em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;",
+      "border-bottom:1px solid currentColor}",
+      ".zpv-pill-link{color:inherit;opacity:.85;font:500 11px/1.3 " + mono + ";letter-spacing:.1em;",
+      "text-transform:uppercase;text-decoration:none;border-bottom:1px solid currentColor}",
+      ".zpv-pill-link:hover{opacity:1}",
       "@media print{.zpv-pill{display:none}}"
     ].join("");
     document.head.appendChild(css);
@@ -456,21 +475,37 @@
 
   /* ---------- boot ---------- */
 
+  function claim(slug, index) {
+    /* Two hosts sharing an id would otherwise collide into a single vote. */
+    return blocks[slug] ? slug + "-" + (index + 1) : slug;
+  }
+
   function init() {
     var sections = Array.prototype.slice
-      .call(document.querySelectorAll("main > section, body > section"))
+      .call(document.querySelectorAll(".wrap > section, main > section, body > section"))
       .filter(function (section) {
-        return section.querySelector(".h2");
+        return section.querySelector(".h2, h2");
       });
     if (!sections.length) return;
 
     injectStyles();
 
     sections.forEach(function (section, index) {
-      var slug = slugFor(section, index);
-      /* Two sections sharing an English eyebrow would otherwise collide into one vote. */
-      if (blocks[slug]) slug = slug + "-" + (index + 1);
-      blocks[slug] = buildBlock(section, slug, titleFor(section));
+      var slug = sectionSlug(section, index);
+      if (SKIP_SECTIONS[slug]) return;
+
+      if (CARD_SECTIONS[slug]) {
+        Array.prototype.slice.call(section.querySelectorAll(".dcard")).forEach(function (card, cardIndex) {
+          var code = card.querySelector(".dcode");
+          var title = card.querySelector(".dtitle");
+          var cardSlug = claim(slugify(slug + "-" + (code ? code.textContent : cardIndex + 1)), cardIndex);
+          blocks[cardSlug] = buildBlock(card, cardSlug, title ? title.textContent.trim() : cardSlug, "card");
+        });
+        return;
+      }
+
+      var sectionKey = claim(slug, index);
+      blocks[sectionKey] = buildBlock(section, sectionKey, sectionTitle(section), "section");
     });
 
     buildPill();

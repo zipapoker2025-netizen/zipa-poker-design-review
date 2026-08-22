@@ -9,19 +9,38 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700;900&display=swap">
 <style>
-/* Same 1A system as the review page: 紙白 ground, 協會藍 structure, 競賽紅 reserved for
-   the one thing that matters here — a section that is not yet settled. */
+/* Token values mirror the 彙整頁 so the two pages read as one site, including its dark mode.
+   The rule bodies below still speak in the original names — only what the names resolve to
+   changed, which keeps this page a single edit away from either palette. */
 :root{
-  --blue-950:#0F1A3C; --blue-900:#16307A; --blue-800:#1B3A8C; --blue-600:#2F5BD0;
+  --blue-950:#111A33; --blue-900:#1B3A8C; --blue-800:#1B3A8C; --blue-600:#2F5BD0;
   --blue-300:#B9C7EE; --blue-200:#9FB0DF; --blue-100:#DCE0EC;
-  --red-600:#C6402E; --red-700:#A83526;
-  --ink-900:#101418; --ink-700:#43484F; --ink-500:#5C6169;
-  --line-300:#D9DBD6; --line-200:#E3E5E0;
-  --paper-200:#EDEEEB; --paper-100:#F2F2EE; --paper-050:#F5F6F4; --white:#FFFFFF;
+  --red-fill:#C6402E; --red-fill-hover:#A8321F; --red-ink:#A8321F; --on-red:#FFFFFF;
+  --ink-900:#1A2033; --ink-700:#545D74; --ink-500:#545D74;
+  --line-300:rgba(27,58,140,.15); --line-200:rgba(27,58,140,.15);
+  --paper-200:#E9EDF7; --paper-100:#E9EDF7; --paper-050:#F3F5FA; --white:#FFFFFF;
   --font-display:"Barlow Condensed","Noto Sans TC",Helvetica,sans-serif;
   --font-zh:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
   --font-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
   --pad:clamp(16px,5.7vw,64px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --blue-950:#0A0E18; --blue-900:#33508F; --blue-800:#9DB2E8; --blue-600:#9DB2E8;
+    --blue-300:#9DB2E8; --blue-200:#AEB5CB; --blue-100:#AEB5CB;
+    --red-fill:#8F3324; --red-fill-hover:#A83D2C; --red-ink:#F0A08F; --on-red:#FFF3F0;
+    --ink-900:#E9ECF5; --ink-700:#AEB5CB; --ink-500:#AEB5CB;
+    --line-300:rgba(255,255,255,.14); --line-200:rgba(255,255,255,.14);
+    --paper-200:#1E2438; --paper-100:#1E2438; --paper-050:#0D111D; --white:#161B2C;
+  }
+}
+:root[data-theme="dark"]{
+  --blue-950:#0A0E18; --blue-900:#33508F; --blue-800:#9DB2E8; --blue-600:#9DB2E8;
+  --blue-300:#9DB2E8; --blue-200:#AEB5CB; --blue-100:#AEB5CB;
+  --red-fill:#8F3324; --red-fill-hover:#A83D2C; --red-ink:#F0A08F; --on-red:#FFF3F0;
+  --ink-900:#E9ECF5; --ink-700:#AEB5CB; --ink-500:#AEB5CB;
+  --line-300:rgba(255,255,255,.14); --line-200:rgba(255,255,255,.14);
+  --paper-200:#1E2438; --paper-100:#1E2438; --paper-050:#0D111D; --white:#161B2C;
 }
 *{box-sizing:border-box;min-width:0}
 body{margin:0;background:var(--paper-050);color:var(--ink-900);
@@ -32,7 +51,7 @@ a:hover{color:var(--blue-800)}
 .mono{font:500 clamp(10px,2.4vw,12px)/1.3 var(--font-mono);letter-spacing:.13em;text-transform:uppercase}
 header{background:var(--blue-950);color:var(--paper-100);padding:clamp(28px,6vw,56px) 0}
 h1{font:900 clamp(26px,6.6vw,48px)/1.2 var(--font-zh);letter-spacing:.03em;color:var(--white);margin:14px 0 0}
-.rule{width:64px;height:6px;background:var(--red-600);margin:18px 0 0}
+.rule{width:64px;height:6px;background:var(--red-fill);margin:18px 0 0}
 main{padding:clamp(28px,6vw,56px) 0 clamp(44px,9vw,96px)}
 section{border-top:1px solid var(--line-300);padding:clamp(26px,5vw,44px) 0}
 section:first-child{border-top:none;padding-top:0}
@@ -49,12 +68,12 @@ td.num{font:600 14px/1.5 var(--font-mono);white-space:nowrap}
 .flag{display:inline-block;font:500 10px/1.6 var(--font-mono);letter-spacing:.1em;
   text-transform:uppercase;padding:2px 8px;border:1px solid currentColor;white-space:nowrap}
 .flag.ok{color:var(--blue-800)}
-.flag.split{color:var(--red-600)}
+.flag.split{color:var(--red-ink)}
 .flag.thin{color:var(--ink-500)}
 .card{background:var(--white);border:1px solid var(--line-200);padding:clamp(16px,4vw,26px);margin-top:16px}
 .card h3{font:700 clamp(16px,3.6vw,20px)/1.4 var(--font-zh);color:var(--blue-800);margin:0}
 .note{border-left:3px solid var(--line-300);padding:2px 0 2px 14px;margin-top:14px}
-.note.concern{border-left-color:var(--red-600)}
+.note.concern{border-left-color:var(--red-fill)}
 .note.hold{border-left-color:var(--ink-500)}
 .note.agree{border-left-color:var(--blue-600)}
 .note b{display:block;font:500 11px/1.7 var(--font-mono);letter-spacing:.1em;
@@ -65,12 +84,12 @@ td.num{font:600 14px/1.5 var(--font-mono);white-space:nowrap}
   letter-spacing:.1em;text-transform:uppercase;color:var(--ink-500)}
 .gate input{display:block;width:100%;margin-top:6px;padding:11px 12px;border:1px solid var(--line-300);
   background:var(--white);color:var(--ink-900);font:400 15px/1.5 var(--font-zh)}
-button{appearance:none;cursor:pointer;border:1px solid var(--red-600);background:var(--red-600);
-  color:var(--white);padding:12px 22px;font:700 15px/1.2 var(--font-zh);letter-spacing:.04em;margin-top:20px}
-button:hover{background:var(--red-700);border-color:var(--red-700)}
+button{appearance:none;cursor:pointer;border:1px solid var(--red-fill);background:var(--red-fill);
+  color:var(--on-red);padding:12px 22px;font:700 15px/1.2 var(--font-zh);letter-spacing:.04em;margin-top:20px}
+button:hover{background:var(--red-fill-hover);border-color:var(--red-fill-hover)}
 button.ghost{background:none;color:var(--blue-800);border-color:var(--line-300);font-weight:500}
 button.ghost:hover{background:var(--paper-200);color:var(--blue-800);border-color:var(--blue-600)}
-.msg{margin-top:16px;font:500 13px/1.6 var(--font-mono);letter-spacing:.04em;color:var(--red-700)}
+.msg{margin-top:16px;font:500 13px/1.6 var(--font-mono);letter-spacing:.04em;color:var(--red-ink)}
 .lede{font:400 clamp(15px,3.4vw,17px)/1.85 var(--font-zh);color:var(--ink-700);max-width:62ch;margin:18px 0 0}
 .actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 .hidden{display:none}
@@ -84,7 +103,7 @@ button.ghost:hover{background:var(--paper-200);color:var(--blue-800);border-colo
     <h1>審閱回覆彙總</h1>
     <div class="rule"></div>
     <p style="color:var(--blue-100);max-width:56ch;font-size:clamp(14px,3.2vw,16px)">
-      同事在<a href="./" style="color:var(--blue-300);border-bottom-color:rgba(185,199,238,.5)">審閱頁</a>逐節留下的立場與備註。
+      同事在<a href="./" style="color:var(--blue-300);border-bottom-color:rgba(185,199,238,.5)">彙整頁</a>留下的立場與備註：D01–D12 逐條，其餘章節整節。
       會議前掃一遍，已達共識的節次可以直接跳過。
     </p>
   </div>
@@ -156,16 +175,42 @@ button.ghost:hover{background:var(--paper-200);color:var(--blue-800);border-colo
   /* The review page's own section titles, so this page reads in Chinese rather than slugs.
      Anything not listed falls back to the slug itself. */
   SECTION_ZH = {
-    "what-changed-today": "今日變更",
-    "needs-a-decision": "待決事項",
-    "case-study": "案例：免費體驗賽貼文",
-    "colour": "色彩",
-    "type": "字體",
-    "lockup": "標誌",
-    "assets-and-licensing": "素材與授權",
-    "where-things-live": "檔案分工",
-    "notes": "頁面說明"
+    "overview": "現況總覽",
+    "decisions-d01": "D01 協會名稱書寫規範",
+    "decisions-d02": "D02 主色定位",
+    "decisions-d03": "D03 場館是否需要子識別",
+    "decisions-d04": "D04 賽事層級的視覺分級",
+    "decisions-d05": "D05 字體系統",
+    "decisions-d06": "D06 語彙紅線表",
+    "decisions-d07": "D07 18+ 與責任聲明固定句",
+    "decisions-d08": "D08 平台取捨：FB 去留／LINE 開不開",
+    "decisions-d09": "D09 各平台角色定義",
+    "decisions-d10": "D10 唯一真相來源（SSOT）放哪",
+    "decisions-d11": "D11 檔案命名規則",
+    "decisions-d12": "D12 誰能改範本／出稿審核由誰簽",
+    "palette": "色彩系統選項",
+    "lexicon": "語彙紅線表",
+    "assets": "品牌資產現況",
+    "ready-assets": "現有素材清單・依會議分類",
+    "accounts": "帳號持有人清冊",
+    "templates": "範本清單缺口",
+    "platforms": "平台規格快查",
+    "format-prereqs": "各平台格式表・前置決議圖",
+    "agenda": "建議討論順序"
   };
+
+  var SECTION_ORDER = ["overview", "decisions-d01", "decisions-d02", "decisions-d03", "decisions-d04", "decisions-d05", "decisions-d06", "decisions-d07", "decisions-d08", "decisions-d09", "decisions-d10", "decisions-d11", "decisions-d12", "palette", "lexicon", "assets", "ready-assets", "accounts", "templates", "platforms", "format-prereqs", "agenda"];
+
+  /* Alphabetical order would scatter D01–D12 among the sections; follow the page instead. */
+  function ordered(keys) {
+    return keys.slice().sort(function (a, b) {
+      var ia = SECTION_ORDER.indexOf(a), ib = SECTION_ORDER.indexOf(b);
+      if (ia === -1 && ib === -1) return a < b ? -1 : a > b ? 1 : 0;
+      if (ia === -1) return 1;
+      if (ib === -1) return -1;
+      return ia - ib;
+    });
+  }
 
   function label(slug) {
     return SECTION_ZH[slug] || slug;
@@ -226,7 +271,7 @@ button.ghost:hover{background:var(--paper-200);color:var(--blue-800);border-colo
 
     var overview = el("overview-body");
     overview.innerHTML = "";
-    Object.keys(map).sort().forEach(function (slug) {
+    ordered(Object.keys(map)).forEach(function (slug) {
       var bucket = map[slug];
       var mark = verdict(bucket, voterCount);
       var tr = document.createElement("tr");
@@ -261,7 +306,7 @@ button.ghost:hover{background:var(--paper-200);color:var(--blue-800);border-colo
 
     var notesBody = el("notes-body");
     notesBody.innerHTML = "";
-    Object.keys(map).sort().forEach(function (slug) {
+    ordered(Object.keys(map)).forEach(function (slug) {
       var written = map[slug].rows.filter(function (row) { return row.note; });
       if (!written.length) return;
       var card = document.createElement("div");
@@ -294,7 +339,10 @@ button.ghost:hover{background:var(--paper-200);color:var(--blue-800);border-colo
     var open = Object.keys(map)
       .map(function (slug) { return { slug: slug, bucket: map[slug], mark: verdict(map[slug], voterCount) }; })
       .filter(function (item) { return item.mark.cls !== "ok"; })
-      .sort(function (a, b) { return b.bucket.concern - a.bucket.concern; });
+      .sort(function (a, b) {
+        if (b.bucket.concern !== a.bucket.concern) return b.bucket.concern - a.bucket.concern;
+        return SECTION_ORDER.indexOf(a.slug) - SECTION_ORDER.indexOf(b.slug);
+      });
 
     var lines = ["ZIPA POKER 設計系統審閱 — 會議議程（依回覆自動產生）", ""];
     if (!open.length) {
