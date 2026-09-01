@@ -1,0 +1,574 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>ZIPA 工作匯報 2026/08/23–09/01</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --ground:#F5F6FA; --card:#FFF; --rule:#E1E5EE; --soft:#EDEFF5;
+    --ink:#171B2C; --ink2:#3D4557; --muted:#6B7288;
+    --blue:#0D4C87; --blue-soft:#E8EFF6;
+    --red:#C6402E; --red-soft:#FAEBE8;
+    --gold:#8A631F; --gold-soft:#F6EFE1;
+    --green:#1F6B4B; --green-soft:#E4F1EA;
+    --sans:"Noto Sans TC",-apple-system,"PingFang TC","Microsoft JhengHei",sans-serif;
+    --serif:"Noto Serif TC","Songti TC",serif;
+    --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --ground:#0E1220; --card:#171C2E; --rule:#2A3145; --soft:#212739;
+      --ink:#EDEFF5; --ink2:#C3C9D8; --muted:#8C95AC;
+      --blue:#7FB0DE; --blue-soft:#1B2942;
+      --red:#E8836F; --red-soft:#35211D;
+      --gold:#B8873A; --gold-soft:#2E2618;
+      --green:#6FBF97; --green-soft:#16301F;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#0E1220; --card:#171C2E; --rule:#2A3145; --soft:#212739;
+    --ink:#EDEFF5; --ink2:#C3C9D8; --muted:#8C95AC;
+    --blue:#7FB0DE; --blue-soft:#1B2942;
+    --red:#E8836F; --red-soft:#35211D;
+    --gold:#B8873A; --gold-soft:#2E2618;
+    --green:#6FBF97; --green-soft:#16301F;
+  }
+
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;background:var(--ground);color:var(--ink);
+    font-family:var(--sans);font-size:15px;line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:820px;margin:0 auto;padding:28px 18px 80px}
+
+  /* masthead */
+  .top{border-bottom:2px solid var(--ink);padding-bottom:14px;margin-bottom:18px}
+  .kick{font-family:var(--mono);font-size:11px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+  h1{font-family:var(--serif);font-size:clamp(21px,4.4vw,28px);line-height:1.3;
+    margin:0 0 6px;text-wrap:balance}
+  .range{font-family:var(--mono);font-size:13px;color:var(--blue);
+    font-variant-numeric:tabular-nums}
+
+  /* metrics */
+  .metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(124px,1fr));
+    gap:1px;background:var(--rule);border:1px solid var(--rule);
+    border-radius:5px;overflow:hidden;margin:0 0 26px}
+  .m{background:var(--card);padding:11px 13px}
+  .m .k{font-size:11.5px;color:var(--muted);line-height:1.5}
+  .m .v{font-family:var(--mono);font-weight:600;font-size:17px;
+    font-variant-numeric:tabular-nums;line-height:1.4}
+  .m .v i{font-style:normal;color:var(--muted);font-weight:400}
+  .m .v em{font-style:normal;color:var(--blue)}
+
+  /* sections */
+  section{margin-bottom:34px}
+  h2{font-family:var(--serif);font-size:18px;margin:0 0 3px;
+    display:flex;align-items:baseline;gap:9px}
+  h2 .n{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--blue)}
+  .hint{color:var(--muted);font-size:12.5px;margin:0 0 14px}
+
+  .lede{font-size:15.5px;line-height:1.85;color:var(--ink2);
+    border-left:3px solid var(--blue);padding-left:15px;margin:0}
+  .lede b{color:var(--ink)}
+
+  /* stream label */
+  .stream{font-family:var(--mono);font-size:11px;font-weight:600;
+    letter-spacing:.08em;color:var(--muted);margin:20px 0 8px;
+    padding-bottom:5px;border-bottom:1px solid var(--rule)}
+  .stream:first-of-type{margin-top:0}
+
+  /* collapsible item */
+  details{background:var(--card);border:1px solid var(--rule);
+    border-radius:5px;margin-bottom:7px}
+  details[open]{border-color:var(--blue)}
+  summary{
+    list-style:none;cursor:pointer;padding:11px 13px 11px 34px;
+    position:relative;font-weight:500;font-size:14.5px;line-height:1.55;
+  }
+  summary::-webkit-details-marker{display:none}
+  summary::before{
+    content:"";position:absolute;left:14px;top:18px;
+    width:6px;height:6px;border-right:1.5px solid var(--blue);
+    border-bottom:1.5px solid var(--blue);
+    transform:rotate(-45deg);transition:transform .15s
+  }
+  details[open] summary::before{transform:rotate(45deg);top:16px}
+  summary:hover{background:var(--soft)}
+  summary .when{font-family:var(--mono);font-size:11.5px;color:var(--muted);
+    font-variant-numeric:tabular-nums;margin-right:7px}
+  .body{padding:0 14px 13px 34px;border-top:1px solid var(--soft);margin-top:2px;
+    padding-top:11px}
+  .body ul{margin:0 0 9px;padding-left:17px}
+  .body li{margin-bottom:3px;font-size:13.8px;color:var(--ink2)}
+  .body .lab{font-family:var(--mono);font-size:10.5px;font-weight:600;
+    letter-spacing:.07em;color:var(--muted);display:block;margin:9px 0 3px}
+  .body .lab:first-child{margin-top:0}
+  .body p{margin:0;font-size:13.8px;color:var(--ink2)}
+  .body .ev{font-size:12.5px;color:var(--muted);
+    background:var(--soft);padding:8px 11px;border-radius:4px;margin-top:10px}
+
+  /* tags */
+  .t{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.06em;
+    padding:1px 6px;border-radius:3px;white-space:nowrap;
+    background:var(--blue-soft);color:var(--blue);vertical-align:1px}
+  .t.ok{background:var(--green-soft);color:var(--green)}
+  .t.hold{background:var(--gold-soft);color:var(--gold)}
+  .t.risk{background:var(--red-soft);color:var(--red)}
+
+  /* plain rows */
+  .row{background:var(--card);border:1px solid var(--rule);border-radius:5px;
+    border-left:3px solid var(--red);padding:11px 14px;margin-bottom:7px}
+  .row.mid{border-left-color:var(--gold)}
+  .row h3{font-size:14px;margin:0 0 3px;font-weight:700}
+  .row p{margin:0;font-size:13.3px;color:var(--ink2)}
+  .row .why{color:var(--muted);font-size:12.8px;margin-top:3px}
+
+  /* steps */
+  ol.steps{list-style:none;counter-reset:s;margin:0;padding:0}
+  ol.steps li{counter-increment:s;position:relative;padding:9px 0 9px 40px;
+    border-bottom:1px solid var(--soft)}
+  ol.steps li:last-child{border-bottom:0}
+  ol.steps li::before{content:counter(s,decimal-leading-zero);position:absolute;
+    left:0;top:11px;font-family:var(--mono);font-size:11px;font-weight:600;
+    color:var(--blue);background:var(--blue-soft);padding:2px 7px;border-radius:3px}
+  ol.steps h3{font-size:14.2px;margin:0 0 2px;font-weight:700}
+  ol.steps p{margin:0;font-size:13.2px;color:var(--ink2)}
+
+  .tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:10px 0}
+  table{border-collapse:collapse;width:100%;font-size:13px;min-width:300px}
+  th,td{text-align:left;padding:6px 10px;border-bottom:1px solid var(--rule)}
+  th{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--muted);
+    letter-spacing:.05em;white-space:nowrap}
+  td{color:var(--ink2)}
+  td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+
+  .note{background:var(--gold-soft);border-radius:5px;padding:11px 14px;
+    font-size:13.2px;color:var(--ink2);margin:0 0 20px;line-height:1.7}
+  .note b{color:var(--ink)}
+
+  footer{margin-top:40px;padding-top:14px;border-top:1px solid var(--rule);
+    font-size:12px;color:var(--muted);line-height:1.8}
+  code{font-family:var(--mono);font-size:.9em;background:var(--soft);
+    padding:1px 4px;border-radius:3px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <div class="kick">工作匯報 · 匯報對象／主管部門群</div>
+  <h1>設計系統落地、會議數位化、報表自動化</h1>
+  <div class="range">2026 / 08 / 23 — 2026 / 09 / 01</div>
+</header>
+
+<div class="metrics">
+  <div class="m"><div class="k">提交次數</div><div class="v">50</div></div>
+  <div class="m"><div class="k">版式範本</div><div class="v">22 <i>套</i></div></div>
+  <div class="m"><div class="k">稿件完全合規</div><div class="v">11<i>/</i>19</div></div>
+  <div class="m"><div class="k">海報硬編色碼</div><div class="v">18 <i>→</i> <em>0</em></div></div>
+  <div class="m"><div class="k">Drive 掃描</div><div class="v">120s <i>→</i> <em>4s</em></div></div>
+</div>
+
+<div class="note">
+  <b>判定原則：</b>以成果檔、操作文件與程式碼為證據。產出檔案可證實「已完成製作」，
+  <b>不能直接證明「已部署／正式上線」</b>。標
+  <span class="t">實查</span> 者為本機、GitHub、雲端硬碟實際查核；標
+  <span class="t hold">紀錄</span> 者依提供之工作紀錄整理，未另行驗證。
+</div>
+
+<section>
+  <h2><span class="n">01</span>摘要</h2>
+  <p class="lede">
+    這十天有兩條並行的工作線。一條把設計系統<b>從一份文件變成會擋錯的系統</b>——規範定案、
+    套用到實際出稿、三處檔案位置接成可稽核的同步流程。另一條把會議與表單流程<b>數位化</b>——
+    會前 AI 整理、提案收集、決策追蹤，加上對外素材與 QR 驗證。
+    區間末另完成會員報表自動化的可行性驗證。<br>
+    工具與規範層已收斂，<b>下一階段瓶頸轉為兩件事：內容決策，以及「已完成製作」到「正式上線」的最後一哩</b>。
+  </p>
+</section>
+
+<section>
+  <h2><span class="n">02</span>完成事項</h2>
+  <p class="hint">點擊展開細項。依主題聚合，各項標示時間。</p>
+
+  <div class="stream">A · 設計系統與檔案治理 <span class="t">實查</span></div>
+
+  <details>
+    <summary><span class="when">08/23–25</span>品牌規範定案，並落地為程式自動檢查 <span class="t ok">已完成</span></summary>
+    <div class="body">
+      <span class="lab">做了什麼</span>
+      <ul>
+        <li>五色主色系與賽事分級定案，建立八種使用情境的語意色彩層。</li>
+        <li>將規則寫進檢查工具：顏色、字級、禁用詞、固定聲明句一次驗完。</li>
+        <li>撲克牌、照片、圖示共 67 個素材入庫。</li>
+      </ul>
+      <span class="lab">結果</span>
+      <p>顏色用錯會直接檢查失敗，不再依賴人工目視比對。</p>
+      <span class="lab">下一步</span>
+      <p>維持不動。規範本體已定，後續只增不改。</p>
+      <div class="ev">證據：設計系統 repo 8/23 七次、8/25 十二次提交。</div>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="when">08/29</span>檔案治理流程設計定稿 <span class="t ok">已完成</span></summary>
+    <div class="body">
+      <span class="lab">做了什麼</span>
+      <p>界定本機、GitHub、雲端硬碟、網頁版設計系統四者的職責與同步方向。</p>
+      <span class="lab">結果</span>
+      <p>確立「規範往下走、產出往上回」的單向原則，兩邊不會互相覆蓋。</p>
+      <span class="lab">下一步</span>
+      <p>已於 9/1 實作為工具，見下。</p>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="when">08/31</span>九項會議懸案全數裁決，寫入規範 <span class="t ok">已完成</span></summary>
+    <div class="body">
+      <span class="lab">做了什麼</span>
+      <ul>
+        <li>賽事分級歸屬、18 歲提醒固定句、檔名規則、桃園南崁館資訊。</li>
+        <li>建立 46 條語彙紅線表，分四級風險。</li>
+        <li>確認<b>中文版規範為唯一權威版本</b>，英文版僅供對照。</li>
+      </ul>
+      <span class="lab">結果</span>
+      <p>出稿時 AI 讀取的就是這份中文規範，決策不會停在會議記錄裡。</p>
+      <span class="lab">下一步</span>
+      <p>尚有三項未結：抖音是否經營、範本清單是否有缺、帳號持有人清冊歸屬。</p>
+      <div class="ev">證據：設計系統 repo 8/31 十二次提交。</div>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="when">08/31</span>自建 Google API 金鑰，接通協會雲端硬碟 <span class="t ok">已完成</span></summary>
+    <div class="body">
+      <span class="lab">做了什麼</span>
+      <p>改用協會自有憑證存取雲端硬碟，並撰寫申請流程文件供日後交接。</p>
+      <span class="lab">結果</span>
+      <p>掃描耗時 <b>120 秒 → 4 秒</b>，容量限制解除。</p>
+      <span class="lab">下一步</span>
+      <p>憑證存放於本機設定檔，不進任何程式碼庫。</p>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="when">09/01</span>出稿產能：26 件範本與稿件新增或重製 <span class="t ok">已完成</span></summary>
+    <div class="body">
+      <span class="lab">做了什麼</span>
+      <ul>
+        <li>救回 7 個只存在於網頁版、<b>沒有任何備份</b>的範本。</li>
+        <li>五張社群稿由 1:1 改版為 4:5；六張賽事稿重建。</li>
+        <li>新增活動公告與倒數兩個母版、YouTube 素材四件、桃園南崁館海報。</li>
+        <li>產出全範本索引，並清空海報的硬編色碼。</li>
+      </ul>
+      <span class="lab">結果</span>
+      <p><b>19 件稿件中 11 件已完全合規</b>（含 18 歲提醒與法定聲明），海報硬編色碼 18 → 0。</p>
+      <span class="lab">下一步</span>
+      <p>六個文件型範本尚未轉換，見第 3 節。</p>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="when">09/01</span>雲端硬碟整併：版本分歧解除、舊檔封存 <span class="t ok">已完成</span></summary>
+    <div class="body">
+      <span class="lab">做了什麼</span>
+      <p>發現雲端硬碟上的色彩設定檔與本機規範<b>各自維護了一週、五處互相矛盾</b>。
+         已降版為下游副本，不衝突的內容併入規範。可攜品牌包上架，改版前的原始檔經核准後封存刪除。</p>
+      <span class="lab">結果</span>
+      <p>單一真相來源確立。此類分歧改由工具自動偵測，不再靠人發現。</p>
+      <span class="lab">下一步</span>
+      <p>雲端硬碟仍有三個資料夾未納入管理（LOGO 母檔、字體、素材庫）。</p>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="when">09/01</span>同步檢查工具上線，首跑即抓到破圖 <span class="t ok">已完成</span></summary>
+    <div class="body">
+      <span class="lab">做了什麼</span>
+      <p>差異檢查與發佈功能完成並實際運行。發佈流程會先驗證壓縮檔完整性再上傳，
+         且保留檔案識別碼，既有分享連結不會失效。工具設計為<b>不刪除任何檔案</b>。</p>
+      <span class="lab">結果</span>
+      <p>首次執行即抓到 <b>3 個素材漏推</b>，其中環北會館海報範本在網頁版上的 QR Code 一直是破圖，
+         過去無人發現。四邊已驗證同步。</p>
+      <span class="lab">下一步</span>
+      <p>規劃六個功能目前上線兩個，其餘視使用頻率再評估，非阻塞。</p>
+    </div>
+  </details>
+
+  <div class="stream">B · 會議數位化與對外素材 <span class="t hold">紀錄</span></div>
+
+  <details>
+    <summary><span class="when">08/24–25</span>店務／館務研討會執行包（初版） <span class="t ok">已完成</span></summary>
+    <div class="body">
+      <span class="lab">做了什麼</span>
+      <ul>
+        <li>串接「LINE 公告 → 會前閱讀 → AI 問答 → Google 表單 → 主持人彙整 → 15–30 分鐘決策會議」。</li>
+        <li>表單依 MI、TDA／牌局、店務流程、設備、人力排班、會員服務與培訓分流為六個區段。</li>
+        <li>三組共用 AI 提示詞，均設缺漏檢查與風險輸出，並明訂 AI 不可代替制度決策或現場裁決。</li>
+        <li>四套 LINE 訊息範本；15 分鐘與 30 分鐘兩種議程；綠黃紅灰四級議題分類。</li>
+        <li>手機操作示範：兩支錄影與四張流程截圖。</li>
+      </ul>
+      <span class="lab">結果</span>
+      <p>會議可聚焦在少數真正需要決策的問題，其餘在會前線上處理完畢。</p>
+      <span class="lab">下一步</span>
+      <p>已由 8/26 的 2.1 版取代分類機制，見下一項。</p>
+      <div class="ev">證據：執行包 Markdown、Apps Script 建立工具、表單欄位規格、LINE 文案、操作錄影。</div>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="when">08/26</span>館務會議 2.1 無分類版與半自動化處理 <span class="t ok">已完成</span></summary>
+    <div class="body">
+      <span class="lab">做了什麼</span>
+      <ul>
+        <li>分類流程改為「會前處理／待補資料／需會議決定／合併退回」，取代紅黃綠。</li>
+        <li>新增個資風險標記、相似題提示、資料完整性檢查與處理狀態統計。</li>
+        <li>單一設定頁自動產生四則 LINE 文案。</li>
+        <li>建立「決定、負責人、期限、第一步產出」的會議結案機制。</li>
+      </ul>
+      <span class="lab">結果</span>
+      <p>提案收集到決策追蹤形成閉環，議題不會開完會就消失。</p>
+      <span class="lab">下一步</span>
+      <p><b>尚待 2–3 位不同崗位同仁端到端試跑</b>，通過後才正式公告。</p>
+      <div class="ev">證據：快速落地操作包 DOCX、彙整決策模板 XLSX、Apps Script、安裝 README。</div>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="when">08/29</span>客戶意見回饋表單建立工具 <span class="t hold">工具完成</span></summary>
+    <div class="body">
+      <span class="lab">做了什麼</span>
+      <p>Apps Script 可一鍵建立表單與對應回覆試算表，含是否接受後續聯繫的條件式分流、
+         個資蒐集告知、法律聲明，以及成果自動移至指定雲端資料夾。</p>
+      <span class="lab">結果</span>
+      <p>只能描述為「<b>工具完成</b>」——尚未執行、無正式表單網址。</p>
+      <span class="lab">下一步</span>
+      <p>執行腳本、完成授權、取得網址，並分別測試「願意」與「不願意」兩條分支。</p>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="when">08/24→29</span>會員意見回饋宣傳素材，QR 已實際解碼驗證 <span class="t ok">已完成</span></summary>
+    <div class="body">
+      <span class="lab">做了什麼</span>
+      <p>兩款 A4 海報「意見讓服務更清楚」「掃描分享本次體驗」，
+         另輸出 30–50 cm 與 75–100 cm 觀看距離版本、預覽版及 QR 圖檔。</p>
+      <span class="lab">結果</span>
+      <p><b>6 張最終海報全部實際解碼核對</b>，QR 均正確連至同一份表單。</p>
+      <span class="lab">下一步</span>
+      <p>待表單正式上線後即可張貼。</p>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="when">08/24→28</span>合作夥伴招募海報修訂定稿 <span class="t ok">已完成</span></summary>
+    <div class="body">
+      <span class="lab">做了什麼</span>
+      <p>經三次修訂後於 8/28 定稿，內容含合作制度、場次報酬、合作特點、18+ 聲明及兩館聯絡 QR。</p>
+      <span class="lab">結果</span>
+      <p>可直接對外使用。</p>
+      <span class="lab">下一步</span>
+      <p>無。</p>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="when">08/24–29</span>海報製作與 QR 驗證流程標準化 <span class="t ok">已完成</span></summary>
+    <div class="body">
+      <span class="lab">做了什麼</span>
+      <p>將海報文字核對、觀看距離字級、QR 原圖合成、品牌檢查與最終解碼驗證整理成標準流程，
+         並建立可重複使用的合成與解碼檢查腳本。</p>
+      <span class="lab">結果</span>
+      <p>後續每一張公開海報都走同一套驗證，<b>QR 失效不會等到印出來才發現</b>。</p>
+      <span class="lab">下一步</span>
+      <p>無。已成為固定作業。</p>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="when">08/29</span>跨 AI 助理的使用者脈絡整理 <span class="t hold">內容完成</span></summary>
+    <div class="body">
+      <span class="lab">做了什麼</span>
+      <p>整理個人背景、持續偏好、組織關係、專案時間線與固定工作規則，
+         附來源日期與引文，並區分已確認／未確認／不可推定三類。</p>
+      <span class="lab">結果</span>
+      <p>保留了證據界線——未將檔案路徑當成正式姓名，也未從工作地點推定居住地。</p>
+      <span class="lab">下一步</span>
+      <p>尚無證據顯示內容已實際匯入另一個 AI 助理。</p>
+    </div>
+  </details>
+
+  <div class="stream">C · 區間外延伸（09/01） <span class="t hold">紀錄</span></div>
+
+  <details>
+    <summary><span class="when">09/01</span>會員報表自動化：需求盤點、平台驗證、架構設計 <span class="t hold">SOP 完成</span></summary>
+    <div class="body">
+      <span class="lab">做了什麼</span>
+      <ul>
+        <li>盤點會員點數、每日異動、票券使用、會員升級與試算表串接需求，整理成可直接發送客服的詢問。</li>
+        <li>案例研究：確認平台已有 POS、會員、點數、票券核銷及自動分級案例，<b>但查無公開 API 文件</b>。</li>
+        <li>實際驗證後台報表功能，已建立並下載測試報表（<b>未修改任何會員或點數資料</b>）。</li>
+        <li>檢查實際點數檔案結構，提出目標日期覆寫與唯一鍵策略，避免每日重跑產生重複。</li>
+        <li>完成「瀏覽器自動下載 → 雲端硬碟 → 流程引擎 → 試算表」架構與異常處理設計，並產出可列印 SOP。</li>
+      </ul>
+      <span class="lab">結果</span>
+      <p>可行性已驗證，SOP 涵蓋每日排程、解析、清理、月累積、升級候選、歸檔與成功／失敗通知。</p>
+      <span class="lab">下一步</span>
+      <p>尚未建立正式自動化程式與試算表成品，見第 4 節卡點。</p>
+    </div>
+  </details>
+</section>
+
+<section>
+  <h2><span class="n">03</span>進行中事項</h2>
+  <p class="hint">已啟動、尚未結案。</p>
+
+  <details>
+    <summary>六個範本尚未轉換至新色彩規範，共 665 處</summary>
+    <div class="body">
+      <div class="tablewrap"><table>
+        <tr><th>範本</th><th>處數</th><th>狀態</th></tr>
+        <tr><td>荷官課程簡報</td><td class="num">286</td><td>可立即開工</td></tr>
+        <tr><td>TDA 問答</td><td class="num">68</td><td>可立即開工</td></tr>
+        <tr><td>組織圖</td><td class="num">98</td><td>待內容裁決</td></tr>
+        <tr><td>新人流程（三種版式）</td><td class="num">213</td><td>待內容裁決</td></tr>
+      </table></div>
+      <p><b>可立即開工 354 處，待裁決 311 處。</b>轉換判準已定，屬例行工作。</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>館務會議 2.1 尚待小規模試跑與正式導入 <span class="t hold">紀錄</span></summary>
+    <div class="body">
+      <p>工具與文件已完成，但沒有試跑完成、正式公告或實際會議使用紀錄。
+         文件要求由 2–3 位不同崗位人員實測完整流程，通過門檻後才正式公告。</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>客戶意見回饋表單尚待執行建立與上線檢查 <span class="t hold">紀錄</span></summary>
+    <div class="body">
+      <p>需實際執行腳本、完成授權並取得表單與試算表網址；
+         上線前須測試兩條聯繫意願分支，確認雲端位置與分享權限，
+         並依協會政策確認資料保存期間與權利行使聯絡方式。</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>五個版式尚未建立 <span class="t hold">待排程</span></summary>
+    <div class="body">
+      <p>賽果戰報、選手介紹、知識小卡、限動現場直擊、限動連結導流。
+         母版與素材已就緒，屬新增產出而非修補，待行銷排程決定優先順序。</p>
+    </div>
+  </details>
+</section>
+
+<section>
+  <h2><span class="n">04</span>風險與阻礙</h2>
+  <p class="hint">紅色需決策才能解除，金色為需留意的作業限制。</p>
+
+  <div class="row">
+    <h3>四個範本含人事資訊，而設計系統每次對話都會被完整讀取</h3>
+    <p>組織圖含具名幹部，三個新人流程範本含內部人事作業。此資料夾同時是 AI 技能包。</p>
+    <p class="why">阻礙：內容歸屬問題，非技術問題。<b>需裁決「留不留在這裡」，才能決定是否投入 311 處轉換工時。</b></p>
+  </div>
+
+  <div class="row">
+    <h3>帳號持有人清冊尚未歸位 <span class="t risk">待確認</span></h3>
+    <p>盤點結果會揭示哪些帳號僅綁定單一個人、缺少第二管理員，等同一份單點失效地圖。</p>
+    <p class="why">已確認<b>不得寫入任何程式碼資料夾</b>，應存於協會自有雲端或密碼管理工具。待確認保管人與存放位置。</p>
+  </div>
+
+  <div class="row">
+    <h3>會員平台沒有公開 API，自動化依賴內部端點 <span class="t risk">待確認</span></h3>
+    <p>前端存在內部報表端點但無公開文件，直接依賴可能因平台改版失效。</p>
+    <p class="why">待確認：是否向平台方正式詢問 API 開放，或接受以瀏覽器自動化為長期方案。</p>
+  </div>
+
+  <div class="row mid">
+    <h3>雲端硬碟 76% 檔案由個人帳號持有</h3>
+    <p>113 個檔案中有 86 個屬於個人帳號。工具已設定為只讀不改，長期仍是治理缺口。</p>
+    <p class="why">待確認：是否轉移至協會帳號，或至少補上第二管理員。</p>
+  </div>
+
+  <div class="row mid">
+    <h3>自動化無法完全無人值守</h3>
+    <p>後台登入逾期或遇到人機驗證時仍需人工重新登入；另需取得雲端硬碟與試算表授權、確認流程引擎執行環境。</p>
+  </div>
+
+  <div class="row mid">
+    <h3>自動檢查驗不出版面問題</h3>
+    <p>文字溢出、孤字、空白斷層等版面缺陷，自動工具一律判定通過。</p>
+    <p class="why">現行對策：每次改版一律實際算圖後人工目視確認，此步驟不可省略。</p>
+  </div>
+
+  <div class="row mid">
+    <h3>兩項外部相依限制</h3>
+    <p>網頁版檔案下載超過 192 KiB 會靜默截斷（本期已踩到一次，已建立逐檔驗證）；
+       範本縮圖須由平台端自行重拍，我方無法產生。</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="n">05</span>下一步</h2>
+  <p class="hint">依優先順序。第 1–3 項為決策事項，會影響其後排程。</p>
+
+  <ol class="steps">
+    <li><h3>裁決組織圖與新人流程範本的內容歸屬</h3>
+        <p>決定人事資訊是否留在設計系統資料夾。此決定解鎖 311 處轉換工作。</p></li>
+    <li><h3>確認帳號持有人清冊的保管方式與存放位置</h3>
+        <p>並評估補上第二管理員，降低單點失效風險。</p></li>
+    <li><h3>決定會員平台 API 的取得路徑</h3>
+        <p>正式向平台方詢問，或確認接受瀏覽器自動化為長期方案。</p></li>
+    <li><h3>館務會議 2.1 端到端試跑</h3>
+        <p>找 2–3 位不同崗位同仁實測，排除測試資料，通過門檻後正式公告。</p></li>
+    <li><h3>建立並測試正式客戶意見回饋表單</h3>
+        <p>執行腳本取得網址、測試兩條分流、確認權限與資料保存政策。</p></li>
+    <li><h3>完成兩個無爭議範本的色彩轉換</h3>
+        <p>荷官課程簡報 286 處、TDA 問答 68 處，共 354 處。可立即開工。</p></li>
+    <li><h3>統一兩項規格不一致</h3>
+        <p>會館 QR Code 檔案格式（三處引用不一致）；限動安全區數值（兩套並存）。</p></li>
+    <li><h3>依行銷排程啟動五個新版式</h3>
+        <p>賽果戰報、選手介紹、知識小卡、限動現場直擊、限動連結導流。</p></li>
+  </ol>
+</section>
+
+<section>
+  <h2><span class="n">06</span>資訊缺口</h2>
+  <p class="hint">兩條工作線的證據交叉核對後，實際缺口比原先判斷小。</p>
+  <div class="tablewrap"><table>
+    <tr><th>日期</th><th>A 線</th><th>B 線</th><th>判定</th></tr>
+    <tr><td class="num">08/23</td><td class="num">7</td><td>—</td><td>有</td></tr>
+    <tr><td class="num">08/24</td><td class="num">1</td><td>執行包、素材</td><td>有</td></tr>
+    <tr><td class="num">08/25</td><td class="num">12</td><td>執行包、錄影</td><td>有</td></tr>
+    <tr><td class="num">08/26</td><td class="num">0</td><td>會議 2.1</td><td>有</td></tr>
+    <tr><td class="num">08/27</td><td class="num">0</td><td>—</td><td><b>無</b></td></tr>
+    <tr><td class="num">08/28</td><td class="num">0</td><td>招募海報定稿</td><td>有</td></tr>
+    <tr><td class="num">08/29</td><td class="num">1</td><td>表單工具、脈絡整理</td><td>有</td></tr>
+    <tr><td class="num">08/30</td><td class="num">0</td><td>—</td><td><b>無</b></td></tr>
+    <tr><td class="num">08/31</td><td class="num">15</td><td>—</td><td>有</td></tr>
+    <tr><td class="num">09/01</td><td class="num">21</td><td>報表自動化</td><td>有（區間外）</td></tr>
+  </table></div>
+  <p style="font-size:13.3px;color:var(--ink2);margin:8px 0 0">
+    A 線數字為提交次數。原紀錄記「08/26 後無工作證據」「08/31 無新增資料」應予修正——
+    <b>真正兩線皆無證據的僅 08/27 與 08/30 兩天</b>。09/01 屬原訂區間外的延伸成果。
+  </p>
+</section>
+
+<footer>
+  資料來源：兩個程式碼庫的提交記錄、檢查工具實際執行結果、雲端硬碟與網頁版設計系統實際清查（A 線），
+  以及提供之工作紀錄與成果檔清單（B 線、C 線，未另行驗證）。統計截至 2026/09/01。<br>
+  本頁為內部文件，未對搜尋引擎開放，但網址可公開存取——請勿轉為外部連結，亦不放置機密內容。
+</footer>
+
+</div>
+</body>
+</html>
